@@ -1,0 +1,5 @@
+*.o
+a.out
+libft.a
+main.c
+.vscode
