@@ -1,5 +1,7 @@
-*.o
+obj/
+img/
 .vscode
 a.out
 fractol
 libft.a
+libmlx_Linux.a
