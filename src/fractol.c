@@ -6,35 +6,16 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/10 21:17:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:33:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "libft.h"
 #include "mlx.h"
+#include "X11/X.h"//define for hook
 #include <stdio.h>//printf
 #include <math.h>
-
-#define SCREEN_HEIGHT 1080
-#define SCREEN_WIDTH (int)(SCREEN_HEIGHT*(16.0/9))
-
-unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
-{
-	return (r << 16 | g << 8 | b);
-}
-
-void print_binary(unsigned int num)
-{
-    for (int i = 31; i >= 0; i--)
-    {
-        unsigned int bit = (num >> i) & 1;
-        printf("%d", bit);
-		if (i % 8 == 0)
-            printf(" ");
-    }
-    printf("\n");
-}
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
@@ -43,45 +24,15 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 	pt = img->addr + (img->line_length * y + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)pt = color;
 }
-int	get_r(int rgb)
+
+void	draw_fractal(t_img *img, t_complex *comp)
 {
-	return ((rgb >> 16) & 0xFF);
-}
-int	main(int ac, char **av)
-{
-	void	*mlx;
-	void	*mlx_win;
-	t_img	img;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Fractol !");
-	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-
-
-
-
-	// r^2 - im^2 + 2*r*im
-	//double c_r = -2;
-	//double c_im = 1.2;
-
-
-	double real_start = -2.5;
-	double real_end = 2;
-	double im_start = 1.2;
-	double im_end = -1.5;
-	//y im   1.2 -> -1.2 range 2.4 1080
-	//x real -2  -> 0.4  range 2.4 1920
-	double im_range = (double)(ft_abs(im_start) + ft_abs(im_end)) / SCREEN_HEIGHT;
-	double real_range = (double)(ft_abs(real_start) + ft_abs(real_end)) / SCREEN_WIDTH;
-	printf("%f\n", real_range);
 	int	y = 0;
-	double c_im = im_start;
+	double c_im = comp->im_start;
 	while (y < SCREEN_HEIGHT)
 	{
 		int	x = 0;
-		double c_real = real_start;
+		double c_real = comp->real_start;
 		while (x < SCREEN_WIDTH)
 		{
 			double r = 0;
@@ -89,35 +40,85 @@ int	main(int ac, char **av)
 			int i = 0;
 			while (i < 51)
 			{
+				//nb complex to square = r^2 - im^2 + 2*r*im
+				//formula mandelbrot = complex^2 + c
 				double tmp_real = r * r - im * im;
 				im = 2 * r * im + c_im;
 				r = tmp_real + c_real;
-
-				//printf("%f, %f\n", r, im);
-				if (isnan(r) || isnan(im))
+				if (r > 2 || im > 2)
 					break;
 				i++;
 			}
 			if (i == 51)
-				draw_pixel(&img, x, y, create_rgb(0, 0, 0));
+				draw_pixel(img, x, y, create_rgb(0, 0, 0));
 			else
-				draw_pixel(&img, x, y, create_rgb(0, 255, 255 - i * 5));
-			c_real += real_range;
-			//printf("%f\n", real_range);
+				draw_pixel(img, x, y, create_rgb(100, 0, i));
+			c_real += comp->real_range;
 			x++;
 		}
-		c_im -= im_range;
-		//printf("%f \n", c_im);
+		c_im += comp->im_range;
 		y++;
 	}
-	
-	//draw_pixel(&img, 100, 100 + y, create_rgb(125, 255, 200));
+}
 
+void	handle_offset(t_complex *comp, int key)
+{
+	if (key == 'w')
+	{
+		comp->im_start -= comp->im_range * 20.0;
+		comp->im_end -= comp->im_range * 20.0;
+	}
+	else if (key == 's')
+	{
+		comp->im_start += comp->im_range * 20.0;
+		comp->im_end += comp->im_range * 20.0;
+	}
+	else if (key == 'a')
+	{
+		comp->real_start -= comp->real_range * 20.0;
+		comp->real_end -= comp->real_range * 20.0;
+	}
+	else if (key == 'd')
+	{
+		comp->real_start += comp->real_range * 20.0;
+		comp->real_end += comp->real_range * 20.0;
+	}
+	//comp->im_start
+}
 
+int	handle_key(int key, t_data *data)
+{
+	if (key == 'w' || key == 'a' || key == 's' || key == 'd')
+	{
+		handle_offset(data->comp, key);
+		draw_fractal(data->img, data->comp);
+		mlx_put_image_to_window(data->mlx, data->mlx_wind, data->img->img, 0, 0);
+		(void)data;
+		printf("a\n");
+	}
+	return (0);
+}
 
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+int	main(int ac, char **av)
+{
+	t_data *data;
+
+	data = init_data();
+	if (data == NULL)
+		printf("error");//exit ?
+	mlx_key_hook(data->mlx_wind, &handle_key, data);
+	draw_fractal(data->img, data->comp);
+	mlx_put_image_to_window(data->mlx, data->mlx_wind, data->img->img, 0, 0);
+	mlx_loop(data->mlx);
+	//mlx_destroy_image(data->mlx, data->img->img);
+	//mlx_destroy_window(data->mlx, data->mlx_wind);
+	//mlx_destroy_display(data->mlx);
+	//free(data->mlx);
+	//free(data->comp);
+	//free(data->img);
+	//free(data);
 	(void)ac;
 	(void)av;
+	//(void)data;
 	return (0);
 }
