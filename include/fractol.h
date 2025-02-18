@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/14 13:34:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:07:36 by edarnansd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ typedef struct	s_img {
 typedef struct s_complex {
 	double	real_start;
 	double	real_end;
+	double	real_range;
+	double	real_range_per_px;
 	double	im_start;
 	double	im_end;
 	double	im_range;
-	double	real_range;
+	double	im_range_per_px;
 }	t_complex;
 
 typedef struct	t_data {
@@ -35,19 +37,21 @@ typedef struct	t_data {
 	void		*mlx_wind;
 	t_img		*img;
 	t_complex	*comp;
+	int			screen_width;
 }	t_data;
 
-
 # define SCREEN_HEIGHT 720
-# define SCREEN_WIDTH (int)(SCREEN_HEIGHT*(16.0/9))
+# define SCROLL_IN 4
+# define SCROLL_OUT 5
 
 //init_data
 t_data	*init_data(void);
-
 
 //utils
 double			ft_abs_d(double n);
 void 			print_binary(unsigned int num);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
+void 			get_ratio(t_complex *comp);//REMOVE
+void			update_range(t_complex *comp, int screen_width);
 
 #endif
