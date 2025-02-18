@@ -32,7 +32,7 @@ all: $(NAME)
 ${NAME}: libft mlx $(OBJ_DIR)
 	$(MAKE) .NotRelink
 
-.NotRelink: $(LIBFT_LIB) $(MLX_LIB) $(OBJ) $(INCLUDE_DIR)$(NAME).h Makefile
+.NotRelink: $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	$(CC) $(CFLAGS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz $(INC) $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME) 
 	touch .NotRelink
 
@@ -45,7 +45,7 @@ mlx:
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)$(NAME).h Makefile
 	$(CC) $(CFLAGS) $(INC) -I/usr/include -Imlx_linux -c $< -o $@
 
 clean:
