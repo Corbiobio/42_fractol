@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/18 16:06:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:22:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static t_complex	*init_complex(int screen_width)
 	comp = malloc(sizeof(t_complex) * 1);
 	if (comp == NULL)
 		return (NULL);
-	comp->real_start = -1.9;
-	comp->real_end = 0.5;
-	comp->im_start = -0.675;
-	comp->im_end = 0.675;
+	//comp->real_start = -1.9;
+	//comp->real_end = 0.5;
+	//comp->im_start = -0.675;
+	//comp->im_end = 0.675;
+	comp->real_start = -2;
+	comp->real_end = 2;
+	comp->im_start = -1.125;
+	comp->im_end = 1.125;
 	update_range(comp, screen_width);
 	return (comp);
 }
@@ -39,6 +43,7 @@ static t_img	*init_img(void *mlx, int screen_width)
 		return (NULL);
 	img->img = mlx_new_image(mlx, screen_width, SCREEN_HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+	img->bits_per_pixel /= 8;
 	return (img);
 }
 
@@ -70,7 +75,7 @@ t_data	*init_data(void)
 	if (data == NULL)
 		return (NULL);
 	data->screen_width = SCREEN_HEIGHT * (16.0 / 9);
-
+	data->max_iteration = 51;
 	data->comp = init_complex(data->screen_width);
 	data->mlx = mlx_init();
 	if (data->mlx != NULL)
