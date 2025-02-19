@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:47:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/18 14:13:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:00:55 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,22 @@ double	ft_abs_d(double n)
 	return (n);
 }
 
-void print_binary(unsigned int num)//REMOVE
+//REMOVE
+void	print_binary(unsigned int num)
 {
-    for (int i = 31; i >= 0; i--)
-    {
-        unsigned int bit = (num >> i) & 1;
-        printf("%d", bit);
+	int				i;
+	unsigned int	bit;
+
+	i = 31;
+	while (i >= 0)
+	{
+		bit = (num >> i) & 1;
+		printf("%d", bit);
 		if (i % 8 == 0)
-            printf(" ");
-    }
-    printf("\n");
+			printf(" ");
+		i--;
+	}
+	printf("\n");
 }
 
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
@@ -52,7 +58,8 @@ int	get_b(int rgb)
 	return ((rgb) & 0xFF);
 }
 
-void get_ratio(t_complex *comp)//REMOVE
+//REMOVE
+void	get_ratio(t_complex *comp)
 {
 	printf("ratio %f_\n", ((comp->real_end - comp->real_start) / (comp->im_end - comp->im_start)));
 }
