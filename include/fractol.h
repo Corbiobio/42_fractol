@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 18:13:08 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:18:12 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ typedef struct t_data
 # define SCREEN_HEIGHT 1080
 # define SCROLL_IN 4
 # define SCROLL_OUT 5
-
+# define ARROW_LEFT 65361
+# define ARROW_UP 65362
+# define ARROW_RIGHT 65363
+# define ARROW_DOWN 65364
 //init_data
 t_data			*init_data(void);
 
