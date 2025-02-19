@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 17:27:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:13:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ typedef struct t_data
 
 //init_data
 t_data			*init_data(void);
+
+//fractol
+void	draw_fractal(t_img *img, t_complex *comp, int screen_width, int max_iteration);
+
+//key_input
+int	handle_all_key_input(int key, t_data *data);
+
+//mouse_input
+int	handle_all_mouse_input(int key, int x, int y, t_data *data);
 
 //utils
 double			ft_abs_d(double n);

@@ -10,7 +10,9 @@ INCLUDE_DIR = include/
 
 C_FILE =	fractol.c\
 			utils.c\
-			init_data.c
+			init_data.c\
+			key_input.c\
+			mouse_input.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 
