@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 17:22:42 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:42:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ static t_img	*init_img(void *mlx, int screen_width)
 	if (img == NULL)
 		return (NULL);
 	img->img = mlx_new_image(mlx, screen_width, SCREEN_HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
 	img->bits_per_pixel /= 8;
 	return (img);
 }
 
 static void	verif_data_alloc(t_data *data)
 {
-	if (data->img == NULL || data->mlx_wind == NULL ||
-		data->comp == NULL || data->mlx == NULL)
+	if (data->img == NULL || data->mlx_wind == NULL
+		|| data->comp == NULL || data->mlx == NULL)
 	{
 		if (data->mlx != NULL)
 		{
@@ -70,7 +71,7 @@ static void	verif_data_alloc(t_data *data)
 t_data	*init_data(void)
 {
 	t_data		*data;
-	
+
 	data = ft_calloc(1, sizeof(t_data));
 	if (data == NULL)
 		return (NULL);
@@ -80,7 +81,8 @@ t_data	*init_data(void)
 	data->mlx = mlx_init();
 	if (data->mlx != NULL)
 	{
-		data->mlx_wind = mlx_new_window(data->mlx, data->screen_width, SCREEN_HEIGHT, "Fractol !");
+		data->mlx_wind = mlx_new_window(data->mlx, data->screen_width,
+				SCREEN_HEIGHT, "Fractol !");
 		data->img = init_img(data->mlx, data->screen_width);
 	}
 	verif_data_alloc(data);
