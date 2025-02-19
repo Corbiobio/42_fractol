@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 17:55:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:02:48 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ void	handle_mouse_zoom(t_data *data, int key, int x, int y)
 	double		real_offset;
 	double		im_offset;
 
+	comp = data->comp;
 	real_offset = ((double)x / data->screen_width) * comp->real_range;
 	im_offset = ((double)y / SCREEN_HEIGHT) * comp->im_range;
-	comp = data->comp;
 	if (key == SCROLL_IN)
 	{
 		comp->real_start += real_offset / 10;
