@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 18:18:12 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:38:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct t_data
 # define ARROW_UP 65362
 # define ARROW_RIGHT 65363
 # define ARROW_DOWN 65364
+# define KEY_ZOOM_IN '='
+# define KEY_ZOOM_OUT '-'
+
 //init_data
 t_data			*init_data(void);
 
@@ -64,6 +67,7 @@ int	handle_all_key_input(int key, t_data *data);
 
 //mouse_input
 int	handle_all_mouse_input(int key, int x, int y, t_data *data);
+void	handle_zoom(t_data *data, int key, int x, int y);
 
 //utils
 double			ft_abs_d(double n);
