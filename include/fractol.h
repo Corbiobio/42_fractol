@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 14:59:27 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:01:47 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ typedef struct t_data
 # define SCREEN_HEIGHT 1080
 # define SCROLL_IN 4
 # define SCROLL_OUT 5
-# define ARROW_LEFT 65361
-# define ARROW_UP 65362
-# define ARROW_RIGHT 65363
-# define ARROW_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_UP 65362
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
 # define KEY_ZOOM_IN '='
 # define KEY_ZOOM_OUT '-'
 # define KEY_ESC 65307

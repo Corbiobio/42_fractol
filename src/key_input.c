@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 14:55:37 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:02:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ static void	move_fractal(t_complex *comp, int key)
 	const double	real_offset = comp->real_range / 50;
 	const double	im_offset = comp->im_range / 50;
 
-	if (key == 'w' || key == ARROW_UP)
+	if (key == 'w' || key == KEY_UP)
 	{
 		comp->im_start -= im_offset;
 		comp->im_end -= im_offset;
 	}
-	else if (key == 's' || key == ARROW_DOWN)
+	else if (key == 's' || key == KEY_DOWN)
 	{
 		comp->im_start += im_offset;
 		comp->im_end += im_offset;
 	}
-	else if (key == 'a' || key == ARROW_LEFT)
+	else if (key == 'a' || key == KEY_LEFT)
 	{
 		comp->real_start -= real_offset;
 		comp->real_end -= real_offset;
 	}
-	else if (key == 'd' || key == ARROW_RIGHT)
+	else if (key == 'd' || key == KEY_RIGHT)
 	{
 		comp->real_start += real_offset;
 		comp->real_end += real_offset;
@@ -57,7 +57,7 @@ int	exit_close_free_mlx_and_data(t_data *data)
 int	handle_all_key_input(int key, t_data *data)
 {
 	if (key == 'w' || key == 'a' || key == 's' || key == 'd'
-		|| (key >= ARROW_LEFT && key <= ARROW_DOWN))
+		|| (key >= KEY_LEFT && key <= KEY_DOWN))
 	{
 		move_fractal(data->comp, key);
 		draw_fractal(data->img, data->comp, data->screen_width,
