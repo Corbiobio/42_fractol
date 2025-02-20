@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:00:04 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:08:44 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #include "X11/X.h"//define for hook
 #include <stdio.h>//printf
 #include <math.h>
+
+void	draw_fractal(t_data *data)
+{
+	calcul_fractal(data->img, data->comp, data->screen_width,
+		data->max_iteration);
+	mlx_put_image_to_window(data->mlx, data->mlx_wind,
+		data->img->img, 0, 0);
+}
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
@@ -73,7 +81,7 @@ int	mandelbrot(double c_real, double c_im, int max_iteration)
 	return (index);
 }
 
-void	draw_fractal(t_img *img, t_complex *comp, int screen_width,
+void	calcul_fractal(t_img *img, t_complex *comp, int screen_width,
 	int max_iteration)
 {
 	int	index;
@@ -114,9 +122,7 @@ int	main(int ac, char **av)
 	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,
 		&exit_close_free_mlx_and_data, data);
 	mlx_mouse_hook(data->mlx_wind, &handle_all_mouse_input, data);
-	draw_fractal(data->img, data->comp, data->screen_width,
-		data->max_iteration);
-	mlx_put_image_to_window(data->mlx, data->mlx_wind, data->img->img, 0, 0);
+	draw_fractal(data);
 	mlx_loop(data->mlx);
 	(void)ac;
 	(void)av;

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:01:47 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:09:38 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef struct t_data
 t_data			*init_data(void);
 
 //fractol
-void	draw_fractal(t_img *img, t_complex *comp, int screen_width, int max_iteration);
+void	calcul_fractal(t_img *img, t_complex *comp, int screen_width, int max_iteration);
+void	draw_fractal(t_data *data);
 
 //key_input
 int	handle_all_key_input(int key, t_data *data);

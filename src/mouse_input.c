@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:11:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 13:38:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:09:00 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	handle_all_mouse_input(int key, int x, int y, t_data *data)
 	if (key == 4 || key == 5)
 	{
 		handle_zoom(data, key, x, y);
-		draw_fractal(data->img, data->comp, data->screen_width,
-			data->max_iteration);
-		mlx_put_image_to_window(data->mlx, data->mlx_wind,
-			data->img->img, 0, 0);
+		draw_fractal(data);
 	}
 	return (0);
 }
