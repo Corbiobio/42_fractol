@@ -6,12 +6,13 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 13:49:21 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:55:37 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx.h"
+#include <stdlib.h>
 
 static void	move_fractal(t_complex *comp, int key)
 {
@@ -40,6 +41,19 @@ static void	move_fractal(t_complex *comp, int key)
 	}
 }
 
+int	exit_close_free_mlx_and_data(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	mlx_destroy_image(data->mlx, data->img->img);
+	mlx_destroy_window(data->mlx, data->mlx_wind);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	free(data->comp);
+	free(data->img);
+	free(data);
+	exit(EXIT_SUCCESS);
+}
+
 int	handle_all_key_input(int key, t_data *data)
 {
 	if (key == 'w' || key == 'a' || key == 's' || key == 'd'
@@ -59,5 +73,7 @@ int	handle_all_key_input(int key, t_data *data)
 		mlx_put_image_to_window(data->mlx, data->mlx_wind,
 			data->img->img, 0, 0);
 	}
+	else if (key == KEY_ESC)
+		exit_close_free_mlx_and_data(data); 
 	return (0);
 }

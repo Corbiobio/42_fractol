@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 18:11:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:00:04 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,21 +111,14 @@ int	main(int ac, char **av)
 		printf("error");//FIX exit ?
 	mlx_hook(data->mlx_wind, KeyPress, KeyPressMask,
 		&handle_all_key_input, data);
+	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,
+		&exit_close_free_mlx_and_data, data);
 	mlx_mouse_hook(data->mlx_wind, &handle_all_mouse_input, data);
 	draw_fractal(data->img, data->comp, data->screen_width,
 		data->max_iteration);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind, data->img->img, 0, 0);
 	mlx_loop(data->mlx);
-	//mlx_key_hook(data->mlx_wind, &handle_all_key_input, data);
-	//mlx_destroy_image(data->mlx, data->img->img);
-	//mlx_destroy_window(data->mlx, data->mlx_wind);
-	//mlx_destroy_display(data->mlx);
-	//free(data->mlx);
-	//free(data->comp);
-	//free(data->img);
-	//free(data);
 	(void)ac;
 	(void)av;
-	//(void)data;
 	return (0);
 }
