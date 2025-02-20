@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 13:36:55 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:49:21 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	handle_all_key_input(int key, t_data *data)
 		mlx_put_image_to_window(data->mlx, data->mlx_wind,
 			data->img->img, 0, 0);
 	}
-	else if (key == '-' || key == '=')
+	else if (key == KEY_ZOOM_IN || key == KEY_ZOOM_OUT)
 	{
 		handle_zoom(data, key, data->screen_width / 2, SCREEN_HEIGHT / 2);
 		draw_fractal(data->img, data->comp, data->screen_width,
