@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/19 17:42:35 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:23:41 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_complex	*init_complex(int screen_width)
 	comp = malloc(sizeof(t_complex) * 1);
 	if (comp == NULL)
 		return (NULL);
+	//mandelbrot center
 	//comp->real_start = -1.9;
 	//comp->real_end = 0.5;
 	//comp->im_start = -0.675;
@@ -30,6 +31,8 @@ static t_complex	*init_complex(int screen_width)
 	comp->real_end = 2;
 	comp->im_start = -1.125;
 	comp->im_end = 1.125;
+	comp->julia_c_real = -1.76733;
+	comp->julia_c_im = 0.00002;
 	update_range(comp, screen_width);
 	return (comp);
 }

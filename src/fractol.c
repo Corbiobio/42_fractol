@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 13:27:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:16:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 
 void	draw_fractal(t_data *data)
 {
-	calcul_fractal(data->img, data->comp, data->screen_width,
-		data->max_iteration);
+	calcul_fractal(data->img, data->comp, data);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind,
 		data->img->img, 0, 0);
 }
@@ -33,7 +32,7 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pt = color;
 }
 
-int	julia(t_complex *comp, double c_real, double c_im, int max_iteration)
+int	julia(t_complex *comp, int max_iteration)
 {
 	double	real;
 	double	im;
@@ -46,10 +45,10 @@ int	julia(t_complex *comp, double c_real, double c_im, int max_iteration)
 	while (index < max_iteration)
 	{
 		tmp_im = im;
-		im = 2 * real * im + c_im;
+		im = 2 * real * im + comp->julia_c_im;
 		if (im > 2.1)
 			return (index);
-		real = real * real - tmp_im * tmp_im + c_real;
+		real = real * real - tmp_im * tmp_im + comp->julia_c_real;
 		if (real > 2.1)
 			return (index);
 		index++;
@@ -81,12 +80,13 @@ int	mandelbrot(double c_real, double c_im, int max_iteration)
 	return (index);
 }
 
-void	calcul_fractal(t_img *img, t_complex *comp, int screen_width,
-	int max_iteration)
+void	calcul_fractal(t_img *img, t_complex *comp,  t_data *data)
 {
-	int	index;
-	int	x;
-	int	y;
+	const int	screen_width = data->screen_width;
+	const int	max_iteration = data->max_iteration;
+	int			index;
+	int			x;
+	int			y;
 
 	y = 0;
 	comp->im_curr = comp->im_start;
@@ -96,7 +96,7 @@ void	calcul_fractal(t_img *img, t_complex *comp, int screen_width,
 		comp->real_curr = comp->real_start;
 		while (x < screen_width)
 		{
-			index = julia(comp, -1.76733, 0.00002, max_iteration);
+			index = julia(comp, max_iteration);
 			//index = mandelbrot(comp->real_curr, comp->im_curr, max_iteration);
 			if (index == max_iteration)
 				draw_pixel(img, x, y, create_rgb(0, 0, 0));

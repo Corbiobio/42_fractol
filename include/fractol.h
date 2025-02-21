@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:09:38 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:11:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_complex
 	double	im_curr;
 	double	im_range;
 	double	im_range_per_px;
+	double	julia_c_real;
+	double	julia_c_im;	
 }	t_complex;
 
 typedef struct t_data
@@ -61,7 +63,7 @@ typedef struct t_data
 t_data			*init_data(void);
 
 //fractol
-void	calcul_fractal(t_img *img, t_complex *comp, int screen_width, int max_iteration);
+void	calcul_fractal(t_img *img, t_complex *comp, t_data *data);
 void	draw_fractal(t_data *data);
 
 //key_input
