@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:08:44 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:27:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 
 int	julia(t_complex *comp, double c_real, double c_im, int max_iteration)
 {
-	double	tmp_real;
-	int		index;
 	double	real;
 	double	im;
+	double	tmp_im;
+	int		index;
 
 	real = comp->real_curr;
 	im = comp->im_curr;
 	index = 0;
 	while (index < max_iteration)
 	{
-		//nb complex to square = r^2 - im^2 + 2*r*im
-		//formula mandelbrot = complex^2 + c
-		tmp_real = real * real - im * im;
+		tmp_im = im;
 		im = 2 * real * im + c_im;
-		real = tmp_real + c_real;
-		if (real > 2.1 || im > 2.1)
+		if (im > 2.1)
+			return (index);
+		real = real * real - tmp_im * tmp_im + c_real;
+		if (real > 2.1)
 			return (index);
 		index++;
 	}
@@ -61,7 +61,7 @@ int	mandelbrot(double c_real, double c_im, int max_iteration)
 {
 	double	real;
 	double	im;
-	double	tmp_real;
+	double	tmp_im;
 	int		index;
 
 	real = 0;
@@ -69,12 +69,12 @@ int	mandelbrot(double c_real, double c_im, int max_iteration)
 	index = 0;
 	while (index < max_iteration)
 	{
-		//nb complex to square = r^2 - im^2 + 2*r*im
-		//formula mandelbrot = complex^2 + c
-		tmp_real = real * real - im * im;
+		tmp_im = im;
 		im = 2 * real * im + c_im;
-		real = tmp_real + c_real;
-		if (real > 2.1 || im > 2.1)
+		if (im > 2.1)
+			return (index);
+		real = real * real - tmp_im * tmp_im + c_real;
+		if (real > 2.1)
 			return (index);
 		index++;
 	}
