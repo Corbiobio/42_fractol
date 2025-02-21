@@ -6,12 +6,18 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 14:11:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:54:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+typedef enum
+{
+	JULIA,
+	MANDELBROT,
+}	e_fract_id;
 
 typedef struct s_img
 {
@@ -46,6 +52,8 @@ typedef struct t_data
 	t_complex	*comp;
 	int			screen_width;
 	int			max_iteration;
+	e_fract_id	fractal_id;
+	int 		(*fractal_func)(t_complex*, int);
 }	t_data;
 
 # define SCREEN_HEIGHT 1080
@@ -63,8 +71,11 @@ typedef struct t_data
 t_data			*init_data(void);
 
 //fractol
-void	calcul_fractal(t_img *img, t_complex *comp, t_data *data);
+void	calcul_fractal(t_img *img, t_complex *comp,
+	int (fractal_func)(t_complex*, int) , t_data *data);
 void	draw_fractal(t_data *data);
+int		mandelbrot(t_complex *comp, int max_iteration);
+int		julia(t_complex *comp, int max_iteration);
 
 //key_input
 int	handle_all_key_input(int key, t_data *data);

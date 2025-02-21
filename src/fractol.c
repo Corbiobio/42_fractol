@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 14:16:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:57:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	draw_fractal(t_data *data)
 {
-	calcul_fractal(data->img, data->comp, data);
+	calcul_fractal(data->img, data->comp, data->fractal_func, data);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind,
 		data->img->img, 0, 0);
 }
@@ -56,7 +56,7 @@ int	julia(t_complex *comp, int max_iteration)
 	return (index);
 }
 
-int	mandelbrot(double c_real, double c_im, int max_iteration)
+static int	calc_mandelbrot(double c_real, double c_im, int max_iteration)
 {
 	double	real;
 	double	im;
@@ -80,7 +80,12 @@ int	mandelbrot(double c_real, double c_im, int max_iteration)
 	return (index);
 }
 
-void	calcul_fractal(t_img *img, t_complex *comp,  t_data *data)
+int	mandelbrot(t_complex *comp, int max_iteration)
+{
+	return (calc_mandelbrot(comp->real_curr, comp->im_curr, max_iteration));
+}
+void	calcul_fractal(t_img *img, t_complex *comp,
+	int (fractal_func)(t_complex*, int) , t_data *data)
 {
 	const int	screen_width = data->screen_width;
 	const int	max_iteration = data->max_iteration;
@@ -96,8 +101,7 @@ void	calcul_fractal(t_img *img, t_complex *comp,  t_data *data)
 		comp->real_curr = comp->real_start;
 		while (x < screen_width)
 		{
-			index = julia(comp, max_iteration);
-			//index = mandelbrot(comp->real_curr, comp->im_curr, max_iteration);
+			index = fractal_func(comp, max_iteration);
 			if (index == max_iteration)
 				draw_pixel(img, x, y, create_rgb(0, 0, 0));
 			else

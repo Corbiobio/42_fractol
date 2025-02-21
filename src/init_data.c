@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 14:23:41 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:57:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_data	*init_data(void)
 		return (NULL);
 	data->screen_width = SCREEN_HEIGHT * (16.0 / 9);
 	data->max_iteration = 51;
+	data->fractal_func = &julia;
 	data->comp = init_complex(data->screen_width);
 	data->mlx = mlx_init();
 	if (data->mlx != NULL)
