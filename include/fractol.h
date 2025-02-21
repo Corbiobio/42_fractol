@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 15:54:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:36:13 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct t_data
 # define KEY_ZOOM_IN '='
 # define KEY_ZOOM_OUT '-'
 # define KEY_ESC 65307
+# define KEY_ADD_ITER 'e'
+# define KEY_REMOVE_ITER 'r'
 
 //init_data
 t_data			*init_data(void);

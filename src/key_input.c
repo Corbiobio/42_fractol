@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:08:54 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:33:07 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ int	exit_close_free_mlx_and_data(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
+void	handle_iteration(int key, t_data *data)
+{
+	if (key == KEY_ADD_ITER)
+		data->max_iteration += 10;
+	else if (key == KEY_REMOVE_ITER)
+		data->max_iteration -= 10;
+}
+
 int	handle_all_key_input(int key, t_data *data)
 {
 	if (key == 'w' || key == 'a' || key == 's' || key == 'd'
@@ -65,6 +73,12 @@ int	handle_all_key_input(int key, t_data *data)
 	else if (key == KEY_ZOOM_IN || key == KEY_ZOOM_OUT)
 	{
 		handle_zoom(data, key, data->screen_width / 2, SCREEN_HEIGHT / 2);
+		draw_fractal(data);
+	}
+	else if ((key == KEY_ADD_ITER && data->max_iteration <= 255)
+		|| (key == KEY_REMOVE_ITER && data->max_iteration >= 20))
+	{
+		handle_iteration(key, data);
 		draw_fractal(data);
 	}
 	else if (key == KEY_ESC)
