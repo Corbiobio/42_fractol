@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 14:57:42 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:07:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,33 @@ void	calcul_fractal(t_img *img, t_complex *comp,
 	}
 }
 
+int	update_julia_c(int x, int y, t_data *data)
+{
+	static int	x_old = 0;
+	static int	y_old = 0;
+	const int	offset = SCREEN_HEIGHT / 36;
+
+	if (x <= x_old - offset || x >= x_old + offset)
+	{
+		if (x > x_old)
+			data->comp->julia_c_real += 0.00035;
+		else
+			data->comp->julia_c_real -= 0.00035;
+		x_old = x;
+	}
+	if (y <= y_old - offset || y >= y_old + offset)
+	{
+		if (y > y_old)
+			data->comp->julia_c_im += 0.00070;
+		else
+			data->comp->julia_c_im -= 0.00070;
+		y_old = y;
+	}
+	if (x == x_old || y == y_old)
+		draw_fractal(data);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -126,6 +153,8 @@ int	main(int ac, char **av)
 	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,
 		&exit_close_free_mlx_and_data, data);
 	mlx_mouse_hook(data->mlx_wind, &handle_all_mouse_input, data);
+	if (data->fractal_id == JULIA)
+		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
 	draw_fractal(data);
 	mlx_loop(data->mlx);
 	(void)ac;
