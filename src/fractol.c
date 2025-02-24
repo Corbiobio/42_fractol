@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/24 11:07:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:11:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,29 @@ int	update_julia_c(int x, int y, t_data *data)
 	return (0);
 }
 
+void	set_julia_value(t_data *data, char **av)
+{
+	t_complex *comp;
+
+	comp = data->comp;
+	comp->real_start = -2;
+	comp->real_end = 2;
+	comp->im_start = -1.125;
+	comp->im_end = 1.125;
+	comp->julia_c_real = parse_str_to_double(av[2]);
+	comp->julia_c_im = parse_str_to_double(av[3]);
+	update_range(comp, data->screen_width);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	data = init_data();
+	data = init_data(verif_arg_and_get_fractal_id(ac, av));
+	if (data->fractal_id == JULIA)
+		set_julia_value(data, av);
+	if (data->fractal_id == JULIA)
+		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
 	if (data == NULL)
 		printf("error");//FIX exit ?
 	mlx_hook(data->mlx_wind, KeyPress, KeyPressMask,
@@ -153,8 +171,6 @@ int	main(int ac, char **av)
 	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,
 		&exit_close_free_mlx_and_data, data);
 	mlx_mouse_hook(data->mlx_wind, &handle_all_mouse_input, data);
-	if (data->fractal_id == JULIA)
-		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
 	draw_fractal(data);
 	mlx_loop(data->mlx);
 	(void)ac;

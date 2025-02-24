@@ -12,7 +12,8 @@ C_FILE =	fractol.c\
 			utils.c\
 			init_data.c\
 			key_input.c\
-			mouse_input.c
+			mouse_input.c\
+			verif_param.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 

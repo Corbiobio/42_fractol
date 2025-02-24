@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 16:13:46 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:04:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,10 @@ static t_complex	*init_complex(int screen_width)
 	comp = malloc(sizeof(t_complex) * 1);
 	if (comp == NULL)
 		return (NULL);
-	//mandelbrot center
-	//comp->real_start = -1.9;
-	//comp->real_end = 0.5;
-	//comp->im_start = -0.675;
-	//comp->im_end = 0.675;
-	comp->real_start = -2;
-	comp->real_end = 2;
-	comp->im_start = -1.125;
-	comp->im_end = 1.125;
-	comp->julia_c_real = -1.76733;
-	comp->julia_c_im = 0.00002;
+	comp->real_start = -1.9;
+	comp->real_end = 0.5;
+	comp->im_start = -0.675;
+	comp->im_end = 0.675;
 	update_range(comp, screen_width);
 	return (comp);
 }
@@ -71,7 +64,16 @@ static void	verif_data_alloc(t_data *data)
 	}
 }
 
-t_data	*init_data(void)
+int (* get_fractal_func(e_fract_id id))(t_complex*, int)
+{
+	if (id == MANDELBROT)
+		return (&mandelbrot);
+	if (id == JULIA)
+		return (&julia);
+	return (NULL);
+}
+
+t_data	*init_data(e_fract_id id)
 {
 	t_data		*data;
 
@@ -80,8 +82,8 @@ t_data	*init_data(void)
 		return (NULL);
 	data->screen_width = SCREEN_HEIGHT * (16.0 / 9);
 	data->max_iteration = 51;
-	data->fractal_func = &julia;
-	data->fractal_id = JULIA;
+	data->fractal_id = id;
+	data->fractal_func = get_fractal_func(id);
 	data->comp = init_complex(data->screen_width);
 	data->mlx = mlx_init();
 	if (data->mlx != NULL)

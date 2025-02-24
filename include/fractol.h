@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 16:36:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:09:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 typedef enum
 {
+	ERROR,
 	JULIA,
 	MANDELBROT,
 }	e_fract_id;
@@ -56,7 +57,7 @@ typedef struct t_data
 	int 		(*fractal_func)(t_complex*, int);
 }	t_data;
 
-# define SCREEN_HEIGHT 1080
+# define SCREEN_HEIGHT 720
 # define SCROLL_IN 4
 # define SCROLL_OUT 5
 # define KEY_LEFT 65361
@@ -69,8 +70,10 @@ typedef struct t_data
 # define KEY_ADD_ITER 'e'
 # define KEY_REMOVE_ITER 'r'
 
+# define PARAM_ERROR 100
+
 //init_data
-t_data			*init_data(void);
+t_data	*init_data(e_fract_id id);
 
 //fractol
 void	calcul_fractal(t_img *img, t_complex *comp,
@@ -86,6 +89,10 @@ int	exit_close_free_mlx_and_data(t_data *data);
 //mouse_input
 int	handle_all_mouse_input(int key, int x, int y, t_data *data);
 void	handle_zoom(t_data *data, int key, int x, int y);
+
+//verif_param
+e_fract_id	verif_arg_and_get_fractal_id(int ac, char **av);
+double		parse_str_to_double(char *str);
 
 //utils
 double			ft_abs_d(double n);
