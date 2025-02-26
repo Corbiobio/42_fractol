@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/24 18:07:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:10:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double	parse_str_to_double(char *str)
 	return (db * is_negative);
 }
 
-static void	print_notice(void)
+void	print_notice(void)
 {
 	ft_putstr_fd("╔══════════════════════════════╗\n", STDOUT_FILENO);
 	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
@@ -86,7 +86,7 @@ static void	print_notice(void)
 	ft_putstr_fd("╚══════════════════════════════╝\n", STDOUT_FILENO);
 }
 
-static e_fract_id	get_fractal_id(char **av)
+static t_fract_id	get_fractal_id(char **av)
 {
 	if (ft_strncmp(av[1], "mandelbrot", 11) == 0)
 		return (MANDELBROT);
@@ -95,10 +95,10 @@ static e_fract_id	get_fractal_id(char **av)
 	return (ERROR);
 }
 
-e_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
+t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 {
 	char		is_error;
-	e_fract_id	fractal_id;
+	t_fract_id	fractal_id;
 
 	is_error = 0;
 	if (ac <= 1)

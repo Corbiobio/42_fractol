@@ -6,19 +6,19 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/24 18:09:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:10:10 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-typedef enum
+typedef enum e_fract_id
 {
 	ERROR,
 	JULIA,
 	MANDELBROT,
-}	e_fract_id;
+}	t_fract_id;
 
 typedef struct s_img
 {
@@ -53,7 +53,7 @@ typedef struct t_data
 	t_complex	*comp;
 	int			screen_width;
 	int			max_iteration;
-	e_fract_id	fractal_id;
+	t_fract_id	fractal_id;
 	int 		(*fractal_func)(t_complex*, int);
 }	t_data;
 
@@ -73,7 +73,7 @@ typedef struct t_data
 # define PARAM_ERROR 100
 
 //init_data
-t_data	*init_data(e_fract_id id);
+t_data	*init_data(t_fract_id id);
 
 //fractol
 void	calcul_fractal(t_img *img, t_complex *comp,
@@ -91,8 +91,9 @@ int	handle_all_mouse_input(int key, int x, int y, t_data *data);
 void	handle_zoom(t_data *data, int key, int x, int y);
 
 //verif_param
-e_fract_id	verif_arg_and_get_fractal_id(int ac, char **av);
+t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av);
 double		parse_str_to_double(char *str);
+void		print_notice(void);
 
 //utils
 double			ft_abs_d(double n);
