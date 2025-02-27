@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/26 10:10:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:54:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ int (* get_fractal_func(t_fract_id id))(t_complex*, int)
 {
 	if (id == MANDELBROT)
 		return (&mandelbrot);
-	if (id == JULIA)
+	else if (id == JULIA)
 		return (&julia);
+	else if (id == PHOENIX)
+		return (&phoenix);
 	return (NULL);
 }
 

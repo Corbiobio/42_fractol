@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/24 18:11:36 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:09:59 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "mlx.h"
 #include "X11/X.h"//define for hook
 #include <stdio.h>//printf
-#include <math.h>
 
 void	draw_fractal(t_data *data)
 {
@@ -54,6 +53,40 @@ int	julia(t_complex *comp, int max_iteration)
 		index++;
 	}
 	return (index);
+}
+
+int	calc_phoenix(t_complex *comp, double real, double im, int max_iteration)
+{
+	int		index;
+	double	res_im;
+	double	res_real;
+	double	old_im;
+	double	old_real;
+
+	old_im = 0;
+	old_real = 0;
+	index = -1;
+	while (++index < max_iteration)
+	{
+		res_im = 2 * real * im + 0;
+		res_im += -0.5 * old_im + 0 * old_real;
+		if (res_im > 2.1)
+			return (index);
+		res_real = (real * real - im * im) + 0.5666;
+		res_real += -0.5 * old_real - 0 * old_im;
+		if (res_real > 2.1)
+			return (index);
+		old_im = im;
+		old_real = real;
+		im = res_im;
+		real = res_real;
+	}
+	return (index);
+}
+
+int	phoenix(t_complex *comp, int max_iteration)
+{
+	return (calc_phoenix(comp, -comp->im_curr, -comp->real_curr, max_iteration));
 }
 
 static int	calc_mandelbrot(double c_real, double c_im, int max_iteration)
@@ -160,12 +193,12 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	data = init_data(verif_arg_and_get_fractal_id(ac, av));
-	if (data->fractal_id == JULIA)
+	if (data == NULL)
+		printf("error");//FIX exit ?
+	if (data->fractal_id == JULIA || data->fractal_id == PHOENIX)
 		set_julia_value(data, av);
 	if (data->fractal_id == JULIA)
 		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
-	if (data == NULL)
-		printf("error");//FIX exit ?
 	mlx_hook(data->mlx_wind, KeyPress, KeyPressMask,
 		&handle_all_key_input, data);
 	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,
@@ -173,7 +206,5 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(data->mlx_wind, &handle_all_mouse_input, data);
 	draw_fractal(data);
 	mlx_loop(data->mlx);
-	(void)ac;
-	(void)av;
 	return (0);
 }

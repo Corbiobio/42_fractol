@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/26 10:10:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:54:41 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef enum e_fract_id
 	ERROR,
 	JULIA,
 	MANDELBROT,
+	PHOENIX,
 }	t_fract_id;
 
 typedef struct s_img
@@ -81,6 +82,7 @@ void	calcul_fractal(t_img *img, t_complex *comp,
 void	draw_fractal(t_data *data);
 int		mandelbrot(t_complex *comp, int max_iteration);
 int		julia(t_complex *comp, int max_iteration);
+int		phoenix(t_complex *comp, int max_iteration);
 
 //key_input
 int	handle_all_key_input(int key, t_data *data);
