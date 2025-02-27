@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/26 10:10:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:02:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static t_fract_id	get_fractal_id(char **av)
 		return (MANDELBROT);
 	else if (ft_strncmp(av[1], "julia", 6) == 0)
 		return (JULIA);
+	else if (ft_strncmp(av[1], "phoenix", 8) == 0)
+		return (PHOENIX);
 	return (ERROR);
 }
 
@@ -110,15 +112,20 @@ t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 			is_error = PARAM_ERROR;
 		else if (fractal_id == JULIA && ac == 4)
 		{
-			is_error = parse_str_to_double(av[2]);
-			is_error = parse_str_to_double(av[3]);
+			is_error += parse_str_to_double(av[2]);
+			is_error += parse_str_to_double(av[3]);
+		}
+		else if (fractal_id == PHOENIX && ac == 4)
+		{
+			is_error += parse_str_to_double(av[2]);
+			is_error += parse_str_to_double(av[3]);
 		}
 		else if (fractal_id == MANDELBROT && ac == 2)
 			is_error += 0;
 		else
 			is_error = PARAM_ERROR;
 	}
-	if (is_error != PARAM_ERROR)
+	if (is_error == 0)
 		return (fractal_id);
 	print_notice();
 	exit(EXIT_SUCCESS);
