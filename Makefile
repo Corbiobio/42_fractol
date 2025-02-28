@@ -17,7 +17,8 @@ C_FILE = \
 	verif_param.c\
 	fractal/mandelbrot.c\
 	fractal/julia.c\
-	fractal/phoenix.c 
+	fractal/phoenix.c\
+	fractal/burning_ship.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 

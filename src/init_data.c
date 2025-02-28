@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:41 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:32:37 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	(*get_fractal_func(t_fract_id id))(t_complex *comp, int max_iteation)
 		return (&julia);
 	else if (id == PHOENIX)
 		return (&phoenix);
+	else if (id == BURNIN_SHIP)
+		return (&burning_ship);
 	return (NULL);
 }
 
