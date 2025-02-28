@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 13:36:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:18:18 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct t_data
 	int			screen_width;
 	int			max_iteration;
 	t_fract_id	fractal_id;
-	int 		(*fractal_func)(t_complex*, int);
+	int			(*fractal_func)(t_complex*, int);
 }	t_data;
 
 # define SCREEN_HEIGHT 720
@@ -74,34 +74,34 @@ typedef struct t_data
 # define PARAM_ERROR 100
 
 //init_data
-t_data	*init_data(t_fract_id id);
+t_data			*init_data(t_fract_id id);
 
 //fractol
-void	calcul_fractal(t_img *img, t_complex *comp,
-	int (fractal_func)(t_complex*, int) , t_data *data);
-void	draw_fractal(t_data *data);
+void			calcul_fractal(t_img *img, t_complex *comp,
+					int (fractal_func)(t_complex*, int), t_data *data);
+void			draw_fractal(t_data *data);
 
 //mandelbrot
-int		mandelbrot(t_complex *comp, int max_iteration);
+int				mandelbrot(t_complex *comp, int max_iteration);
 
 //julia
-int		julia(t_complex *comp, int max_iteration);
+int				julia(t_complex *comp, int max_iteration);
 
 //phoenix
-int		phoenix(t_complex *comp, int max_iteration);
+int				phoenix(t_complex *comp, int max_iteration);
 
 //key_input
-int	handle_all_key_input(int key, t_data *data);
-int	exit_close_free_mlx_and_data(t_data *data);
+int				handle_all_key_input(int key, t_data *data);
+int				exit_close_free_mlx_and_data(t_data *data);
 
 //mouse_input
-int	handle_all_mouse_input(int key, int x, int y, t_data *data);
-void	handle_zoom(t_data *data, int key, int x, int y);
+int				handle_all_mouse_input(int key, int x, int y, t_data *data);
+void			handle_zoom(t_data *data, int key, int x, int y);
 
 //verif_param
-t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av);
-double		parse_str_to_double(char *str);
-void		print_notice(void);
+t_fract_id		verif_arg_and_get_fractal_id(int ac, char **av);
+double			parse_str_to_double(char *str);
+void			print_notice(void);
 
 //utils
 double			ft_abs_d(double n);
