@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 13:34:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:23:45 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 }
 
 void	calcul_fractal(t_img *img, t_complex *comp,
-	int (fractal_func)(t_complex*, int) , t_data *data)
+	int (fractal_func)(t_complex *, int), t_data *data)
 {
 	const int	screen_width = data->screen_width;
 	const int	max_iteration = data->max_iteration;
@@ -90,7 +90,7 @@ int	update_julia_c(int x, int y, t_data *data)
 
 void	set_julia_value(t_data *data, char **av)
 {
-	t_complex *comp;
+	t_complex	*comp;
 
 	comp = data->comp;
 	comp->real_start = -2;
@@ -112,7 +112,8 @@ int	main(int ac, char **av)
 	if (data->fractal_id == JULIA || data->fractal_id == PHOENIX)
 		set_julia_value(data, av);
 	if (data->fractal_id == JULIA || data->fractal_id == PHOENIX)
-		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
+		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask,
+			&update_julia_c, data);
 	mlx_hook(data->mlx_wind, KeyPress, KeyPressMask,
 		&handle_all_key_input, data);
 	mlx_hook(data->mlx_wind, DestroyNotify, StructureNotifyMask,

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/21 16:33:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:21:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	handle_all_key_input(int key, t_data *data)
 		draw_fractal(data);
 	}
 	else if (key == KEY_ESC)
-		exit_close_free_mlx_and_data(data); 
+		exit_close_free_mlx_and_data(data);
 	return (0);
 }
