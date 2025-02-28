@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 15:33:23 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:46:24 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum e_fract_id
 	MANDELBROT,
 	PHOENIX,
 	BURNIN_SHIP,
+	FISH,
 }	t_fract_id;
 
 typedef struct s_img
@@ -87,6 +88,7 @@ int				mandelbrot(t_complex *comp, int max_iteration);
 int				julia(t_complex *comp, int max_iteration);
 int				phoenix(t_complex *comp, int max_iteration);
 int				burning_ship(t_complex *comp, int max_iteration);
+int				fish(t_complex *comp, int max_iteration);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);

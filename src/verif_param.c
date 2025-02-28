@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 15:38:13 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:46:50 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static t_fract_id	get_fractal_id(char **av)
 		return (PHOENIX);
 	else if (ft_strncmp(av[1], "burning_ship", 13) == 0)
 		return (BURNIN_SHIP);
+	else if (ft_strncmp(av[1], "fish", 5) == 0)
+		return (FISH);
 	return (ERROR);
 }
 
@@ -125,6 +127,8 @@ t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 		else if (fractal_id == MANDELBROT && ac == 2)
 			is_error += 0;
 		else if (fractal_id == BURNIN_SHIP && ac == 2)
+			is_error += 0;
+		else if (fractal_id == FISH && ac == 2)
 			is_error += 0;
 		else
 			is_error = PARAM_ERROR;
