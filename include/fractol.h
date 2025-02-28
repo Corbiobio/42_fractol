@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/27 17:54:41 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:36:50 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,14 @@ t_data	*init_data(t_fract_id id);
 void	calcul_fractal(t_img *img, t_complex *comp,
 	int (fractal_func)(t_complex*, int) , t_data *data);
 void	draw_fractal(t_data *data);
+
+//mandelbrot
 int		mandelbrot(t_complex *comp, int max_iteration);
+
+//julia
 int		julia(t_complex *comp, int max_iteration);
+
+//phoenix
 int		phoenix(t_complex *comp, int max_iteration);
 
 //key_input

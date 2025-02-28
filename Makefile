@@ -2,18 +2,22 @@
 
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -O3 -funroll-loops
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 INCLUDE_DIR = include/
 
-C_FILE =	fractol.c\
-			utils.c\
-			init_data.c\
-			key_input.c\
-			mouse_input.c\
-			verif_param.c
+C_FILE = \
+	fractol.c\
+	utils.c\
+	init_data.c\
+	key_input.c\
+	mouse_input.c\
+	verif_param.c\
+	fractal/mandelbrot.c\
+	fractal/julia.c\
+	fractal/phoenix.c 
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 
@@ -32,7 +36,7 @@ INC = -I $(INCLUDE_DIR) -I $(LIBFT_DIR) -I $(MLX_DIR)
 
 all: $(NAME)
 
-${NAME}: libft mlx $(OBJ_DIR)
+${NAME}: libft mlx
 	$(MAKE) .NotRelink
 
 .NotRelink: $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
@@ -45,10 +49,8 @@ libft:
 mlx:
 	$(MAKE) all -C $(MLX_DIR)
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)$(NAME).h Makefile
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -I/usr/include -Imlx_linux -c $< -o $@
 
 clean:
@@ -67,7 +69,7 @@ re:
 
 run:
 	$(MAKE)
-	./$(NAME)
+	./$(NAME) mandelbrot
 
 val:
 	$(MAKE)

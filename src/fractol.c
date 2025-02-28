@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/27 19:09:59 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:34:52 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,92 +31,6 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pt = color;
 }
 
-int	julia(t_complex *comp, int max_iteration)
-{
-	double	real;
-	double	im;
-	double	tmp_im;
-	int		index;
-
-	real = comp->real_curr;
-	im = comp->im_curr;
-	index = 0;
-	while (index < max_iteration)
-	{
-		tmp_im = im;
-		im = 2 * real * im + comp->julia_c_im;
-		if (im > 2.1)
-			return (index);
-		real = real * real - tmp_im * tmp_im + comp->julia_c_real;
-		if (real > 2.1)
-			return (index);
-		index++;
-	}
-	return (index);
-}
-
-int	calc_phoenix(t_complex *comp, double real, double im, int max_iteration)
-{
-	int		index;
-	double	res_im;
-	double	res_real;
-	double	old_im;
-	double	old_real;
-
-	old_im = 0;
-	old_real = 0;
-	index = -1;
-	while (++index < max_iteration)
-	{
-		res_im = 2 * real * im + 0;
-		res_im += -0.5 * old_im + 0 * old_real;
-		if (res_im > 2.1)
-			return (index);
-		res_real = (real * real - im * im) + 0.5666;
-		res_real += -0.5 * old_real - 0 * old_im;
-		if (res_real > 2.1)
-			return (index);
-		old_im = im;
-		old_real = real;
-		im = res_im;
-		real = res_real;
-	}
-	return (index);
-}
-
-int	phoenix(t_complex *comp, int max_iteration)
-{
-	return (calc_phoenix(comp, -comp->im_curr, -comp->real_curr, max_iteration));
-}
-
-static int	calc_mandelbrot(double c_real, double c_im, int max_iteration)
-{
-	double	real;
-	double	im;
-	double	tmp_im;
-	int		index;
-
-	real = 0;
-	im = 0;
-	index = 0;
-	while (index < max_iteration)
-	{
-		tmp_im = im;
-		im = 2 * real * im + c_im;
-		if (im > 2.1)
-			return (index);
-		real = real * real - tmp_im * tmp_im + c_real;
-		if (real > 2.1)
-			return (index);
-		index++;
-	}
-	return (index);
-}
-
-int	mandelbrot(t_complex *comp, int max_iteration)
-{
-	return (calc_mandelbrot(comp->real_curr, comp->im_curr, max_iteration));
-}
 void	calcul_fractal(t_img *img, t_complex *comp,
 	int (fractal_func)(t_complex*, int) , t_data *data)
 {
@@ -197,7 +111,7 @@ int	main(int ac, char **av)
 		printf("error");//FIX exit ?
 	if (data->fractal_id == JULIA || data->fractal_id == PHOENIX)
 		set_julia_value(data, av);
-	if (data->fractal_id == JULIA)
+	if (data->fractal_id == JULIA || data->fractal_id == PHOENIX)
 		mlx_hook(data->mlx_wind, MotionNotify, Button1MotionMask, &update_julia_c, data);
 	mlx_hook(data->mlx_wind, KeyPress, KeyPressMask,
 		&handle_all_key_input, data);
