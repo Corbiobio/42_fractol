@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:34:01 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 13:34:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:20:14 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ int	julia(t_complex *comp, int max_iteration)
 	real = comp->real_curr;
 	im = comp->im_curr;
 	index = 0;
-	while (index < max_iteration)
+	while (im * im + real * real < 4 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = 2 * real * im + comp->julia_c_im;
-		if (im > 2.1)
-			return (index);
 		real = real * real - tmp_im * tmp_im + comp->julia_c_real;
-		if (real > 2.1)
-			return (index);
 		index++;
 	}
 	return (index);
