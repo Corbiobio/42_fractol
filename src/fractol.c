@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 15:23:45 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 10:51:22 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "mlx.h"
 #include "X11/X.h"//define for hook
 #include <stdio.h>//printf
+#include <math.h>
 
 void	draw_fractal(t_data *data)
 {
@@ -29,6 +30,18 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 
 	pt = img->addr + (img->line_length * y + x * img->bits_per_pixel);
 	*(unsigned int *)pt = color;
+}
+
+unsigned int	get_color_form_palet(float index)
+{
+	//const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.38));
+	//const double	g = 0.58 + 0.41 * cos(6.28318 * (1.0 * index  / 100+ 0.22));
+	//const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.15));
+	const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.0));
+	const double	g = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.33));
+	const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.67));
+	//printf("%f, %f, %f\n", r * 255, g * 255, b * 255);
+	return (create_rgb(r * 255, g * 255, b * 255));
 }
 
 void	calcul_fractal(t_img *img, t_complex *comp,
@@ -50,9 +63,9 @@ void	calcul_fractal(t_img *img, t_complex *comp,
 		{
 			index = fractal_func(comp, max_iteration);
 			if (index == max_iteration)
-				draw_pixel(img, x, y, create_rgb(0, 0, 0));
+				draw_pixel(img, x, y, 0x000000);
 			else
-				draw_pixel(img, x, y, create_rgb(100, 0, index * 5));
+				draw_pixel(img, x, y, get_color_form_palet(index));
 			comp->real_curr += comp->real_range_per_px;
 			x++;
 		}
