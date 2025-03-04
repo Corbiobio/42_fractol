@@ -2,7 +2,8 @@
 
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -O3 -funroll-loops
+CFLAGS = -Wall -Werror -Wextra -g3 -Ofast -funroll-loops
+#REMOVE
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -76,3 +77,8 @@ run:
 val:
 	$(MAKE)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}
+
+cache:
+	$(MAKE)
+	valgrind --tool=cachegrind --cachegrind-out-file=benchmark ./${NAME} mandelbrot 
+	callgrind_annotate benchmark
