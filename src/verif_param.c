@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:34:56 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:44:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,16 @@ void	print_notice(void)
 	ft_putstr_fd("╠══════════════════════════════╣\n", STDOUT_FILENO);
 	ft_putstr_fd("║    ./fractol fractal_name    ║\n", STDOUT_FILENO);
 	ft_putstr_fd("╠══════════════════════════════╣\n", STDOUT_FILENO);
-	ft_putstr_fd("║        fractal_name          ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║         fractal_name         ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║          mandelbrot          ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║         burning_ship         ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║           the_fish           ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
 	ft_putstr_fd("╟──────────────────────────────╢\n", STDOUT_FILENO);
 	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
-	ft_putstr_fd("║         mandelbrot           ║\n", STDOUT_FILENO);
-	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
-	ft_putstr_fd("╟──────────────────────────────╢\n", STDOUT_FILENO);
-	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
-	ft_putstr_fd("║    julia parm_1 parm_2       ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║     julia parm_1 parm_2      ║\n", STDOUT_FILENO);
+	ft_putstr_fd("║    phoenix parm_1 parm_2     ║\n", STDOUT_FILENO);
 	ft_putstr_fd("║                              ║\n", STDOUT_FILENO);
 	ft_putstr_fd("║    param_1 & param_2 need    ║\n", STDOUT_FILENO);
 	ft_putstr_fd("║      to be float between     ║\n", STDOUT_FILENO);
