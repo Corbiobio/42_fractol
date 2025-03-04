@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:32:54 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 15:55:07 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:29:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static double	calc_mandelbrot(double c_real, double c_im, int max_iteration)
 	return (index);
 }
 
-static double	calc_mandelbrot_gradient(double c_real, double c_im, int max_iteration)
+static double	calc_mandelbrot_gradient(double c_real, double c_im,
+	int max_iteration)
 {
 	double	real;
 	double	im;
@@ -84,5 +85,6 @@ double	mandelbrot(t_complex *comp, int max_iteration)
 
 double	mandelbrot_gradient(t_complex *comp, int max_iteration)
 {
-	return (calc_mandelbrot_gradient(comp->real_curr, comp->im_curr, max_iteration));
+	return (calc_mandelbrot_gradient(comp->real_curr, comp->im_curr,
+			max_iteration));
 }
