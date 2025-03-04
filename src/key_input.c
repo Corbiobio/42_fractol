@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 15:21:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:19:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,18 @@ int	exit_close_free_mlx_and_data(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_iteration(int key, t_data *data)
+static void	handle_iteration(int key, t_data *data)
 {
 	if (key == KEY_ADD_ITER)
 		data->max_iteration += 10;
 	else if (key == KEY_REMOVE_ITER)
 		data->max_iteration -= 10;
+}
+
+static void	handle_gradient(t_data *data)
+{
+	data->has_smooth_gradient = !data->has_smooth_gradient;
+	data->fractal_func =  get_fractal_func(data->fractal_id, data);
 }
 
 int	handle_all_key_input(int key, t_data *data)
@@ -79,6 +85,11 @@ int	handle_all_key_input(int key, t_data *data)
 		|| (key == KEY_REMOVE_ITER && data->max_iteration >= 20))
 	{
 		handle_iteration(key, data);
+		draw_fractal(data);
+	}
+	else if (key == KEY_GRADIENT)
+	{
+		handle_gradient(data);
 		draw_fractal(data);
 	}
 	else if (key == KEY_ESC)
