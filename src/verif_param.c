@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 17:46:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:39:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,30 @@ static int	verif_str(char **pt_str)
 
 double	parse_str_to_double(char *str)
 {
-	double	db;
+	double	nbr;
 	int		is_negative;
 	int		len;
 
 	is_negative = verif_str(&str);
 	if (is_negative == 0)
 		return (PARAM_ERROR);
-	if (ft_isdigit(str[0]) == 1 && ft_strlen(str) == 1)
-		return ((str[0] - 48) * is_negative);
 	len = ft_strlen(str);
-	if (ft_strchr_index(str, '.') != 1 || len >= 7)
+	if (len >= 7 || len == 2 || (len == 1 && ft_isdigit(str[0]) == 0)
+			|| (len >= 3 && ft_strchr_index(str, '.') != 1))
 		return (PARAM_ERROR);
-	db = 0;
+	nbr = 0;
 	while (len - 2 > 0)
 	{
 		if (ft_isdigit(str[len - 1]) == 0)
 			return (PARAM_ERROR);
-		db += (str[len - 1] - 48);
-		db /= 10;
+		nbr += (str[len - 1] - '0');
+		nbr /= 10;
 		len--;
 	}
-	db += str[0] - 48;
-	return (db * is_negative);
+	nbr += str[0] - '0';
+	if (nbr > 2)
+		return (PARAM_ERROR);
+	return (nbr * is_negative);
 }
 
 void	print_notice(void)
@@ -114,26 +115,18 @@ t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 		fractal_id = get_fractal_id(av);
 		if (fractal_id == ERROR)
 			is_error = PARAM_ERROR;
-		else if (fractal_id == JULIA && ac == 4)
+		else if ((fractal_id == JULIA || fractal_id == PHOENIX) && ac == 4)
 		{
 			is_error += parse_str_to_double(av[2]);
 			is_error += parse_str_to_double(av[3]);
 		}
-		else if (fractal_id == PHOENIX && ac == 4)
-		{
-			is_error += parse_str_to_double(av[2]);
-			is_error += parse_str_to_double(av[3]);
-		}
-		else if (fractal_id == MANDELBROT && ac == 2)
-			is_error += 0;
-		else if (fractal_id == BURNIN_SHIP && ac == 2)
-			is_error += 0;
-		else if (fractal_id == FISH && ac == 2)
+		else if ((fractal_id == MANDELBROT || fractal_id == BURNIN_SHIP	
+				|| fractal_id == FISH) && ac == 2)
 			is_error += 0;
 		else
 			is_error = PARAM_ERROR;
 	}
-	if (is_error == 0)
+	if (is_error < PARAM_ERROR)
 		return (fractal_id);
 	print_notice();
 	exit(EXIT_SUCCESS);
