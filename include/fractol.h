@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:26:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:37:17 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void			print_notice(void);
 double			ft_abs_d(double n);
 void			print_binary(unsigned int num);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-void			get_ratio(t_complex *comp);//REMOVE
 void			update_range(t_complex *comp, int screen_width);
 double			(*get_fractal_func(t_fract_id id, t_data *data))(
 					t_complex *comp, int max_iteation);
