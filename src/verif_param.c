@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 15:39:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:34:56 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double	parse_str_to_double(char *str)
 		return (PARAM_ERROR);
 	len = ft_strlen(str);
 	if (len >= 7 || len == 2 || (len == 1 && ft_isdigit(str[0]) == 0)
-			|| (len >= 3 && ft_strchr_index(str, '.') != 1))
+		|| (len >= 3 && ft_strchr_index(str, '.') != 1))
 		return (PARAM_ERROR);
 	nbr = 0;
 	while (len - 2 > 0)
@@ -104,15 +104,14 @@ static t_fract_id	get_fractal_id(char **av)
 
 t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 {
-	char		is_error;
-	t_fract_id	fractal_id;
+	char				is_error;
+	const t_fract_id	fractal_id = get_fractal_id(av);
 
 	is_error = 0;
 	if (ac <= 1)
 		is_error = PARAM_ERROR;
 	else
 	{
-		fractal_id = get_fractal_id(av);
 		if (fractal_id == ERROR)
 			is_error = PARAM_ERROR;
 		else if ((fractal_id == JULIA || fractal_id == PHOENIX) && ac == 4)
@@ -120,7 +119,7 @@ t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
 			is_error += parse_str_to_double(av[2]);
 			is_error += parse_str_to_double(av[3]);
 		}
-		else if ((fractal_id == MANDELBROT || fractal_id == BURNIN_SHIP	
+		else if ((fractal_id == MANDELBROT || fractal_id == BURNIN_SHIP
 				|| fractal_id == FISH) && ac == 2)
 			is_error += 0;
 		else
