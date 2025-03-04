@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 17:46:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:47:59 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	verif_data_alloc(t_data *data)
 	}
 }
 
-int	(*get_fractal_func(t_fract_id id))(t_complex *comp, int max_iteation)
+double	(*get_fractal_func(t_fract_id id))(t_complex *comp, int max_iteation)
 {
 	if (id == MANDELBROT)
 		return (&mandelbrot);

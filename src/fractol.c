@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/03 10:51:22 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:30:55 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)pt = color;
 }
 
-unsigned int	get_color_form_palet(float index)
+unsigned int	get_color_form_palet(double index)
 {
-	//const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.38));
-	//const double	g = 0.58 + 0.41 * cos(6.28318 * (1.0 * index  / 100+ 0.22));
-	//const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.15));
-	const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.0));
-	const double	g = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.33));
-	const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index / 100 + 0.67));
+	const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index + 0.38));
+	const double	g = 0.58 + 0.41 * cos(6.28318 * (1.0 * index + 0.22));
+	const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index + 0.15));
+	//const double	r = 0.5 + 0.5 * cos(6.28318 * (1.0 * index + 0.0));
+	//const double	g = 0.5 + 0.5 * cos(6.28318 * (1.0 * index + 0.33));
+	//const double	b = 0.5 + 0.5 * cos(6.28318 * (1.0 * index + 0.67));
 	//printf("%f, %f, %f\n", r * 255, g * 255, b * 255);
 	return (create_rgb(r * 255, g * 255, b * 255));
 }
 
 void	calcul_fractal(t_img *img, t_complex *comp,
-	int (fractal_func)(t_complex *, int), t_data *data)
+	double (fractal_func)(t_complex *, int), t_data *data)
 {
 	const int	screen_width = data->screen_width;
 	const int	max_iteration = data->max_iteration;
-	int			index;
+	double		index;
 	int			x;
 	int			y;
 
@@ -65,7 +65,7 @@ void	calcul_fractal(t_img *img, t_complex *comp,
 			if (index == max_iteration)
 				draw_pixel(img, x, y, 0x000000);
 			else
-				draw_pixel(img, x, y, get_color_form_palet(index));
+				draw_pixel(img, x, y, get_color_form_palet(index / max_iteration));
 			comp->real_curr += comp->real_range_per_px;
 			x++;
 		}

@@ -12,12 +12,12 @@
 
 #include "fractol.h"
 
-int	calc_fish(double c_real, double c_im, int max_iteration)
+double	calc_fish(double c_real, double c_im, int max_iteration)
 {
 	double	real;
 	double	im;
 	double	tmp_im;
-	int		index;
+	double	index;
 
 	real = 0;
 	im = 0;
@@ -32,7 +32,7 @@ int	calc_fish(double c_real, double c_im, int max_iteration)
 	return (index);
 }
 
-int	fish(t_complex *comp, int max_iteration)
+double	fish(t_complex *comp, int max_iteration)
 {
 	return (calc_fish(comp->real_curr, comp->im_curr, max_iteration));
 }

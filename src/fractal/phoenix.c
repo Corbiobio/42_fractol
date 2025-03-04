@@ -6,15 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:34:30 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/03 11:14:57 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:48:56 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	calc_phoenix(t_complex *comp, double real, double im, int max_iteration)
+static double	calc_phoenix(t_complex *comp, double real, double im, int max_iteration)
 {
-	int		index;
+	double	index;
 	double	res_im;
 	double	res_real;
 	double	old_im;
@@ -36,10 +36,10 @@ static int	calc_phoenix(t_complex *comp, double real, double im, int max_iterati
 	return (index);
 }
 
-int	real_calc_phoenix(t_complex *comp, double real,
+double	real_calc_phoenix(t_complex *comp, double real,
 	double im, int max_iteration)
 {
-	int		index;
+	double	index;
 	double	res_im;
 	double	res_real;
 	double	old_im;
@@ -60,7 +60,7 @@ int	real_calc_phoenix(t_complex *comp, double real,
 	return (index);
 }
 
-int	phoenix(t_complex *comp, int max_iteration)
+double	phoenix(t_complex *comp, int max_iteration)
 {
 	return (calc_phoenix(comp, -comp->im_curr, -comp->real_curr,
 			max_iteration));

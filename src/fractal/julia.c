@@ -6,18 +6,18 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:34:01 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/03 11:20:14 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:49:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	julia(t_complex *comp, int max_iteration)
+double	julia(t_complex *comp, int max_iteration)
 {
 	double	real;
 	double	im;
 	double	tmp_im;
-	int		index;
+	double	index;
 
 	real = comp->real_curr;
 	im = comp->im_curr;

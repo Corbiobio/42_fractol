@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/28 17:46:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:47:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct t_data
 	int			screen_width;
 	int			max_iteration;
 	t_fract_id	fractal_id;
-	int			(*fractal_func)(t_complex*, int);
+	double		(*fractal_func)(t_complex*, int);
 }	t_data;
 
 # define SCREEN_HEIGHT 720
@@ -80,15 +80,15 @@ t_data			*init_data(t_fract_id id);
 
 //fractol
 void			calcul_fractal(t_img *img, t_complex *comp,
-					int (fractal_func)(t_complex*, int), t_data *data);
+					double (fractal_func)(t_complex*, int), t_data *data);
 void			draw_fractal(t_data *data);
 
 //fractal
-int				mandelbrot(t_complex *comp, int max_iteration);
-int				julia(t_complex *comp, int max_iteration);
-int				phoenix(t_complex *comp, int max_iteration);
-int				burning_ship(t_complex *comp, int max_iteration);
-int				fish(t_complex *comp, int max_iteration);
+double			mandelbrot(t_complex *comp, int max_iteration);
+double			julia(t_complex *comp, int max_iteration);
+double			phoenix(t_complex *comp, int max_iteration);
+double			burning_ship(t_complex *comp, int max_iteration);
+double			fish(t_complex *comp, int max_iteration);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);
