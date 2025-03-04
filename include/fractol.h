@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 15:53:51 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:14:58 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct t_data
 # define KEY_ESC 65307
 # define KEY_ADD_ITER 'e'
 # define KEY_REMOVE_ITER 'r'
+# define KEY_GRADIENT 'q'
 
 # define PARAM_ERROR 100
 
@@ -115,5 +116,6 @@ void			print_binary(unsigned int num);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
 void			get_ratio(t_complex *comp);//REMOVE
 void			update_range(t_complex *comp, int screen_width);
+double			(*get_fractal_func(t_fract_id id, t_data *data))(t_complex *comp, int max_iteation);
 
 #endif

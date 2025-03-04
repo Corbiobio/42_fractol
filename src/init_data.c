@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:07:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:14:18 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,35 +62,6 @@ static void	verif_data_alloc(t_data *data)
 		free(data);
 		data = NULL;
 	}
-}
-
-static double	(*get_fractal_func(t_fract_id id, t_data *data))(t_complex *comp, int max_iteation)
-{
-	if (data->has_smooth_gradient == 0)
-	{
-		if (id == MANDELBROT)
-			return (&mandelbrot);
-		else if (id == JULIA)
-			return (&julia);
-		else if (id == PHOENIX)
-			return (&phoenix);
-		else if (id == BURNIN_SHIP)
-			return (&burning_ship);
-		else if (id == FISH)
-			return (&fish);
-		return (NULL);
-	}
-	if (id == MANDELBROT)
-		return (&mandelbrot_gradient);
-	else if (id == JULIA)
-		return (&julia_gradient);
-	else if (id == PHOENIX)
-		return (&phoenix_gradient);
-	else if (id == BURNIN_SHIP)
-		return (&burning_ship_gradient);
-	else if (id == FISH)
-		return (&fish_gradient);
-	return (NULL);
 }
 
 t_data	*init_data(t_fract_id id)
