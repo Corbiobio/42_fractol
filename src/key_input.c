@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:19:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:36:27 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	handle_iteration(int key, t_data *data)
 static void	handle_gradient(t_data *data)
 {
 	data->has_smooth_gradient = !data->has_smooth_gradient;
-	data->fractal_func =  get_fractal_func(data->fractal_id, data);
+	data->fractal_func = get_fractal_func(data->fractal_id, data);
 }
 
 int	handle_all_key_input(int key, t_data *data)
