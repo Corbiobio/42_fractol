@@ -6,11 +6,12 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:31:25 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 13:46:56 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:54:23 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <math.h>
 
 static double	calc_burning_ship(double c_real, double c_im, int max_iteration)
 {
@@ -22,14 +23,16 @@ static double	calc_burning_ship(double c_real, double c_im, int max_iteration)
 	real = 0;
 	im = 0;
 	index = 0;
-	while (im * im + real * real < 4 && index < max_iteration)
+	while (im * im + real * real < 16 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = ft_abs_d(2 * real * im) + c_im;
 		real = real * real - tmp_im * tmp_im + c_real;
 		index++;
 	}
-	return (index);
+	//if (index == max_iteration)
+		return (index);
+	//return (index - log2(log2(im * im + real * real)));
 }
 
 double	burning_ship(t_complex *comp, int max_iteration)
