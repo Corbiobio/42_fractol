@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/03 18:47:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:53:51 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct t_data
 	int			screen_width;
 	int			max_iteration;
 	t_fract_id	fractal_id;
+	int			has_smooth_gradient;
 	double		(*fractal_func)(t_complex*, int);
 }	t_data;
 
@@ -89,6 +90,11 @@ double			julia(t_complex *comp, int max_iteration);
 double			phoenix(t_complex *comp, int max_iteration);
 double			burning_ship(t_complex *comp, int max_iteration);
 double			fish(t_complex *comp, int max_iteration);
+double			mandelbrot_gradient(t_complex *comp, int max_iteration);
+double			julia_gradient(t_complex *comp, int max_iteration);
+double			phoenix_gradient(t_complex *comp, int max_iteration);
+double			burning_ship_gradient(t_complex *comp, int max_iteration);
+double			fish_gradient(t_complex *comp, int max_iteration);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);
