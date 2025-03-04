@@ -20,7 +20,7 @@ C_FILE = \
 	fractal/julia.c\
 	fractal/phoenix.c\
 	fractal/burning_ship.c\
-	fractal/fish.c
+	fractal/the_fish.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 
