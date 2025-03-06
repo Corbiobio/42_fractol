@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:11:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 16:42:53 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:07:42 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	handle_all_mouse_input(int key, int x, int y, t_data *data)
 		handle_zoom(data, key, x, y);
 		draw_fractal(data);
 	}
-	else if (key == WHEEL_PRESS && data->fractal_id == MANDELBROT) {
+	else if (key == WHEEL_PRESS && data->fractal_id == MANDELBROT)
+	{
 		handle_weird_mandelbrot(data);
 		draw_fractal(data);
 	}
