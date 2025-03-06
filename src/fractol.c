@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:06:49 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:11:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ int	update_julia_c(int x, int y, t_data *data)
 	if (x <= x_old - offset || x >= x_old + offset)
 	{
 		if (x > x_old)
-			data->comp->julia_c_real += 0.00035;
+			data->comp->julia_c_real += 0.012;
 		else
-			data->comp->julia_c_real -= 0.00035;
+			data->comp->julia_c_real -= 0.012;
 		x_old = x;
 	}
 	if (y <= y_old - offset || y >= y_old + offset)
 	{
 		if (y > y_old)
-			data->comp->julia_c_im += 0.00070;
+			data->comp->julia_c_im += 0.004;
 		else
-			data->comp->julia_c_im -= 0.00070;
+			data->comp->julia_c_im -= 0.004;
 		y_old = y;
 	}
 	if (x == x_old || y == y_old)
