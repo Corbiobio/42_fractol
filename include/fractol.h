@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 16:44:32 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:05:02 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct t_data
 	int			max_iteration;
 	t_fract_id	fractal_id;
 	int			has_smooth_gradient;
+	int			color_func_id;
 	double		(*fractal_func)(t_complex*, int);
 }	t_data;
 
@@ -98,13 +99,25 @@ double			phoenix(t_complex *comp, int max_iteration);
 double			burning_ship(t_complex *comp, int max_iteration);
 double			fish(t_complex *comp, int max_iteration);
 double			weird_mandelbrot(t_complex *comp, int max_iteration);
-
 //fractal_gradient
 double			mandelbrot_gradient(t_complex *comp, int max_iteration);
 double			julia_gradient(t_complex *comp, int max_iteration);
 double			phoenix_gradient(t_complex *comp, int max_iteration);
 double			burning_ship_gradient(t_complex *comp, int max_iteration);
 double			fish_gradient(t_complex *comp, int max_iteration);
+
+
+//color
+unsigned int	get_color_form_palet(double index, int index_func);
+void	color_1(double index, double *rgb);
+void	color_2(double index, double *rgb);
+void	color_3(double index, double *rgb);
+void	color_4(double index, double *rgb);
+void	color_5(double index, double *rgb);
+void	color_6(double index, double *rgb);
+void	color_7(double index, double *rgb);
+void	color_8(double index, double *rgb);
+void	color_9(double index, double *rgb);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);

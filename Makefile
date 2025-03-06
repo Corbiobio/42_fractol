@@ -22,6 +22,9 @@ C_FILE = \
 	fractal/burning_ship.c\
 	fractal/the_fish.c\
 	fractal/weird_mandelbrot.c\
+	color/color.c\
+	color/color_set_1.c\
+	color/color_set_2.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), ${C_FILE})
 
