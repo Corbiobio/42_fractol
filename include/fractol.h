@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:05:02 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:17:16 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ typedef struct t_data
 
 # define PARAM_ERROR 100
 
-//init_data
-t_data			*init_data(t_fract_id id);
-
 //fractol
 void			calcul_fractal(t_img *img, t_complex *comp,
 					double (fractal_func)(t_complex*, int), t_data *data);
@@ -106,18 +103,17 @@ double			phoenix_gradient(t_complex *comp, int max_iteration);
 double			burning_ship_gradient(t_complex *comp, int max_iteration);
 double			fish_gradient(t_complex *comp, int max_iteration);
 
-
 //color
 unsigned int	get_color_form_palet(double index, int index_func);
-void	color_1(double index, double *rgb);
-void	color_2(double index, double *rgb);
-void	color_3(double index, double *rgb);
-void	color_4(double index, double *rgb);
-void	color_5(double index, double *rgb);
-void	color_6(double index, double *rgb);
-void	color_7(double index, double *rgb);
-void	color_8(double index, double *rgb);
-void	color_9(double index, double *rgb);
+void			color_1(double index, double *rgb);
+void			color_2(double index, double *rgb);
+void			color_3(double index, double *rgb);
+void			color_4(double index, double *rgb);
+void			color_5(double index, double *rgb);
+void			color_6(double index, double *rgb);
+void			color_7(double index, double *rgb);
+void			color_8(double index, double *rgb);
+void			color_9(double index, double *rgb);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);
@@ -131,6 +127,9 @@ void			handle_zoom(t_data *data, int key, int x, int y);
 t_fract_id		verif_arg_and_get_fractal_id(int ac, char **av);
 double			parse_str_to_double(char *str);
 void			print_notice(void);
+
+//init_data
+t_data			*init_data(t_fract_id id);
 
 //utils
 double			ft_abs_d(double n);
