@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:03:22 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:03:51 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:41:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	color_8(double index, double *rgb)
 {
 	index /= 30;
 	index = index - (int)index;
-	rgb[0] = 0.65 + -0.65 * cos(6.28318 * (0.333 * index + 0.66));
-	rgb[1] = 0.5 + 0.5 * cos(6.28318 * (0.278 * index + 0.0));
-	rgb[2] = 0.31 + 0.6 * cos(6.28318 * (0.278 * index + 0.667));
+	rgb[0] = 0.36 + 0.0 * cos(6.28318 * (2.4 * index + 0.83));
+	rgb[1] = 0.5 + -0.18 * cos(6.28318 * (1.6 * index + 0.16));
+	rgb[2] = 0.6 + 0.28 * cos(6.28318 * (0.9 * index + -0.7));
 }
 
 void	color_9(double index, double *rgb)
