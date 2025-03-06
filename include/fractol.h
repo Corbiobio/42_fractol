@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:17:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:23:03 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct t_data
 # define KEY_ADD_ITER 'e'
 # define KEY_REMOVE_ITER 'r'
 # define KEY_GRADIENT 'q'
-
+# define KEY_CHANGE_GRADIENT 'c'
 # define PARAM_ERROR 100
 
 //fractol
@@ -117,7 +117,6 @@ void			color_9(double index, double *rgb);
 
 //key_input
 int				handle_all_key_input(int key, t_data *data);
-int				exit_close_free_mlx_and_data(t_data *data);
 
 //mouse_input
 int				handle_all_mouse_input(int key, int x, int y, t_data *data);
@@ -133,10 +132,10 @@ t_data			*init_data(t_fract_id id);
 
 //utils
 double			ft_abs_d(double n);
-void			print_binary(unsigned int num);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
 void			update_range(t_complex *comp, int screen_width);
 double			(*get_fractal_func(t_fract_id id, t_data *data))(
 					t_complex *comp, int max_iteation);
+int				exit_close_free_mlx_and_data(t_data *data);
 
 #endif

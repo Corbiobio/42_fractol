@@ -6,13 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:36:27 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:25:40 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "mlx.h"
-#include <stdlib.h>
 
 static void	move_fractal(t_complex *comp, int key)
 {
@@ -41,31 +39,26 @@ static void	move_fractal(t_complex *comp, int key)
 	}
 }
 
-int	exit_close_free_mlx_and_data(t_data *data)
-{
-	mlx_loop_end(data->mlx);
-	mlx_destroy_image(data->mlx, data->img->img);
-	mlx_destroy_window(data->mlx, data->mlx_wind);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free(data->comp);
-	free(data->img);
-	free(data);
-	exit(EXIT_SUCCESS);
-}
-
 static void	handle_iteration(int key, t_data *data)
 {
 	if (key == KEY_ADD_ITER)
 		data->max_iteration += 10;
 	else if (key == KEY_REMOVE_ITER)
 		data->max_iteration -= 10;
+	draw_fractal(data);
 }
 
 static void	handle_gradient(t_data *data)
 {
 	data->has_smooth_gradient = !data->has_smooth_gradient;
 	data->fractal_func = get_fractal_func(data->fractal_id, data);
+	draw_fractal(data);
+}
+
+static void	handle_index_gradient(t_data *data)
+{
+	data->color_func_id = (data->color_func_id + 1) % 9;
+	draw_fractal(data);
 }
 
 int	handle_all_key_input(int key, t_data *data)
@@ -81,17 +74,15 @@ int	handle_all_key_input(int key, t_data *data)
 		handle_zoom(data, key, data->screen_width / 2, SCREEN_HEIGHT / 2);
 		draw_fractal(data);
 	}
-	else if ((key == KEY_ADD_ITER && data->max_iteration <= 255)
+	else if (key == KEY_ADD_ITER
 		|| (key == KEY_REMOVE_ITER && data->max_iteration >= 20))
-	{
 		handle_iteration(key, data);
-		draw_fractal(data);
-	}
 	else if (key == KEY_GRADIENT)
-	{
 		handle_gradient(data);
-		draw_fractal(data);
-	}
+	else if (key == KEY_GRADIENT)
+		handle_gradient(data);
+	else if (key == KEY_CHANGE_GRADIENT)
+		handle_index_gradient(data);
 	else if (key == KEY_ESC)
 		exit_close_free_mlx_and_data(data);
 	return (0);

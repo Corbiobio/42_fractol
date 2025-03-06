@@ -6,12 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:47:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:38:18 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:22:33 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "mlx.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 double	ft_abs_d(double n)
 {
@@ -61,4 +63,17 @@ double	(*get_fractal_func(t_fract_id id, t_data *data))(
 	else if (id == FISH)
 		return (&fish_gradient);
 	return (NULL);
+}
+
+int	exit_close_free_mlx_and_data(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	mlx_destroy_image(data->mlx, data->img->img);
+	mlx_destroy_window(data->mlx, data->mlx_wind);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	free(data->comp);
+	free(data->img);
+	free(data);
+	exit(EXIT_SUCCESS);
 }
