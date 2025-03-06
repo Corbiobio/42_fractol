@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:37:17 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:44:32 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@ typedef struct t_data
 	double		(*fractal_func)(t_complex*, int);
 }	t_data;
 
+//screen
 # define SCREEN_HEIGHT 720
+
+//mouse
 # define SCROLL_IN 4
 # define SCROLL_OUT 5
+# define WHEEL_PRESS 2
+
+//keyboard
 # define KEY_LEFT 65361
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
@@ -91,6 +97,9 @@ double			julia(t_complex *comp, int max_iteration);
 double			phoenix(t_complex *comp, int max_iteration);
 double			burning_ship(t_complex *comp, int max_iteration);
 double			fish(t_complex *comp, int max_iteration);
+double			weird_mandelbrot(t_complex *comp, int max_iteration);
+
+//fractal_gradient
 double			mandelbrot_gradient(t_complex *comp, int max_iteration);
 double			julia_gradient(t_complex *comp, int max_iteration);
 double			phoenix_gradient(t_complex *comp, int max_iteration);

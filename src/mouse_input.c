@@ -6,12 +6,11 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:11:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/02/20 15:09:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:42:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "mlx.h"
 
 void	handle_zoom(t_data *data, int key, int x, int y)
 {
@@ -39,11 +38,31 @@ void	handle_zoom(t_data *data, int key, int x, int y)
 	update_range(comp, data->screen_width);
 }
 
+static void	handle_weird_mandelbrot(t_data *data)
+{
+	static int	is_weird = 0;
+
+	if (is_weird == 0)
+	{
+		data->fractal_func = &weird_mandelbrot;
+		is_weird = 1;
+	}
+	else
+	{
+		data->fractal_func = get_fractal_func(data->fractal_id, data);
+		is_weird = 0;
+	}
+}
+
 int	handle_all_mouse_input(int key, int x, int y, t_data *data)
 {
-	if (key == 4 || key == 5)
+	if (key == SCROLL_IN || key == SCROLL_OUT)
 	{
 		handle_zoom(data, key, x, y);
+		draw_fractal(data);
+	}
+	else if (key == WHEEL_PRESS && data->fractal_id == MANDELBROT) {
+		handle_weird_mandelbrot(data);
 		draw_fractal(data);
 	}
 	return (0);
