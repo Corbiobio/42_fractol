@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:31:25 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:28:12 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:28:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static double	calc_burning_ship_gradient(double c_real, double c_im,
 	real = 0;
 	im = 0;
 	index = 0;
-	while (im * im + real * real < 16 && index < max_iteration)
+	while (im * im + real * real < 32 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = ft_abs_d(2 * real * im) + c_im;

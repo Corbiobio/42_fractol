@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:32:54 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 16:34:20 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:27:35 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static double	calc_mandelbrot_gradient(double c_real, double c_im,
 	real = 0;
 	im = 0;
 	index = 0;
-	while (im * im + real * real < 16 && index < max_iteration)
+	while (im * im + real * real < 32 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = 2 * real * im + c_im;

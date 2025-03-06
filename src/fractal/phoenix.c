@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:34:30 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:31:10 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:27:51 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static double	calc_phoenix_gradient(t_complex *comp, double real, double im,
 	old_im = 0;
 	old_real = 0;
 	index = 0;
-	while (im * im + real * real < 16 && index < max_iteration)
+	while (im * im + real * real < 32 && index < max_iteration)
 	{
 		res_im = 2 * real * im + comp->julia_c_im * old_im;
 		res_real = (real * real - im * im) + comp->julia_c_real

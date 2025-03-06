@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:34:01 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 15:51:16 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:28:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double	julia_gradient(t_complex *comp, int max_iteration)
 	real = comp->real_curr;
 	im = comp->im_curr;
 	index = 0;
-	while (im * im + real * real < 16 && index < max_iteration)
+	while (im * im + real * real < 32 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = 2 * real * im + comp->julia_c_im;

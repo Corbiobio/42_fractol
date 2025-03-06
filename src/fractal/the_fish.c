@@ -43,7 +43,7 @@ double	calc_fish_gradient(double c_real, double c_im, int max_iteration)
 	real = 0;
 	im = 0;
 	index = 0;
-	while (im * im + real * real < 16 && index < max_iteration)
+	while (im * im + real * real < 32 && index < max_iteration)
 	{
 		tmp_im = im;
 		im = 2 * real * im + c_im;
