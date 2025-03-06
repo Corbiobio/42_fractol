@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:11:28 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:54:26 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:08:05 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static t_fract_id	get_fractal_id(int ac, char **av)
 	else if (ft_strncmp(av[1], "the_fish", 9) == 0)
 		return (FISH);
 	else
-	return (ERROR);
+		return (ERROR);
 }
 
 t_fract_id	verif_arg_and_get_fractal_id(int ac, char **av)
