@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:35:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/08 10:36:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:07:28 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,3 @@ void	calcul_fractal(t_img *img, t_complex *comp,
 		comp->im_curr += comp->im_range_per_px;
 	}
 }
-
