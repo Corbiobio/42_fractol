@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/04 16:14:18 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/08 10:41:09 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static t_complex	*init_complex(int screen_width)
 	comp = malloc(sizeof(t_complex) * 1);
 	if (comp == NULL)
 		return (NULL);
-	comp->real_start = -1.9;
-	comp->real_end = 0.5;
-	comp->im_start = -0.675;
-	comp->im_end = 0.675;
+	comp->real_start = -3;
+	comp->real_end = 1.4;
+	comp->im_start = -1.2375;
+	comp->im_end = 1.2375;
 	update_range(comp, screen_width);
 	return (comp);
 }
