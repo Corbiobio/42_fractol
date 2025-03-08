@@ -6,14 +6,15 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/08 10:41:09 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:10:21 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "libft.h"
 #include "mlx.h"
-#include <unistd.h>
+#include <X11/X.h>
+#include <stdlib.h>
 
 static t_complex	*init_complex(int screen_width)
 {
@@ -44,7 +45,7 @@ static t_img	*init_img(void *mlx, int screen_width)
 	return (img);
 }
 
-static void	verif_data_alloc(t_data *data)
+static t_data	*verif_data_alloc(t_data *data)
 {
 	if (data->img == NULL || data->mlx_wind == NULL
 		|| data->comp == NULL || data->mlx == NULL)
@@ -52,7 +53,10 @@ static void	verif_data_alloc(t_data *data)
 		if (data->mlx != NULL)
 		{
 			if (data->img != NULL)
+			{
 				mlx_destroy_image(data->mlx, data->img->img);
+				free(data->img);
+			}
 			if (data->mlx_wind != NULL)
 				mlx_destroy_window(data->mlx, data->mlx_wind);
 			mlx_destroy_display(data->mlx);
@@ -62,6 +66,7 @@ static void	verif_data_alloc(t_data *data)
 		free(data);
 		data = NULL;
 	}
+	return (data);
 }
 
 t_data	*init_data(t_fract_id id)
@@ -84,6 +89,6 @@ t_data	*init_data(t_fract_id id)
 				SCREEN_HEIGHT, "Fractol !");
 		data->img = init_img(data->mlx, data->screen_width);
 	}
-	verif_data_alloc(data);
+	data = verif_data_alloc(data);
 	return (data);
 }
