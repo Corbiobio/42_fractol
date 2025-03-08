@@ -4,6 +4,12 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
+SRC_DIR = src/
+OBJ_DIR = obj/
+INCLUDE_DIR = include/
+
+INC = -I $(INCLUDE_DIR)
+
 C_FILE =	ft_strlen.c\
 			ft_toupper.c\
 			ft_tolower.c\
@@ -53,24 +59,31 @@ C_FILE =	ft_strlen.c\
 			get_next_line.c\
 			free_double_pt.c
 
-OBJ = ${C_FILE:.c=.o}
+SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
 
-%.o: %.c 
-	${CC} ${CFLAGS} -c $< -o $@
+OBJ = $(C_FILE:.c=.o)
+OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
 
-all: 
-	${MAKE} ${NAME}
+all:
+	$(MAKE) $(NAME)
 
-${NAME}: ${OBJ} libft.h Makefile
-	ar -rc ${NAME} ${OBJ}
+$(NAME): .NotRelink
+
+.NotRelink: $(OBJ)
+	ar -rc $(NAME) $(OBJ)
+	touch .NotRelink
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)/libft.h Makefile
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	rm -f ${OBJ}
+	rm -f $(OBJ)
 
 fclean:
-	${MAKE} clean
-	rm -f ${NAME}
+	$(MAKE) clean
+	rm -f $(NAME)
 
 re:
-	${MAKE} fclean
-	${MAKE} all
+	$(MAKE) fclean
+	$(MAKE) all
