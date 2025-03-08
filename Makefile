@@ -15,6 +15,7 @@ C_FILE = \
 	key_input.c\
 	mouse_input.c\
 	verif_param.c\
+	draw_fractal.c\
 	fractal/mandelbrot.c\
 	fractal/julia.c\
 	fractal/phoenix.c\
