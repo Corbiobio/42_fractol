@@ -5,3 +5,5 @@ a.out
 fractol
 .NotRelink
 benchmark
+src.txt
+src_old

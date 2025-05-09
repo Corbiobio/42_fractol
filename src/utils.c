@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:47:08 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:22:33 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:09:53 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	update_range(t_complex *comp, int screen_width)
+void	update_range(t_complex *comp)
 {
 	comp->im_range = comp->im_end - comp->im_start;
 	comp->real_range = comp->real_end - comp->real_start;
 	comp->im_range_per_px = comp->im_range / SCREEN_HEIGHT;
-	comp->real_range_per_px = comp->real_range / screen_width;
+	comp->real_range_per_px = comp->real_range / SCREEN_WIDTH;
 }
 
 double	(*get_fractal_func(t_fract_id id, t_data *data))(

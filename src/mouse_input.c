@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:11:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:07:42 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:10:39 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_zoom(t_data *data, int key, int x, int y)
 	double		im_offset;
 
 	comp = data->comp;
-	real_offset = ((double)x / data->screen_width) * comp->real_range;
+	real_offset = ((double)x / SCREEN_WIDTH) * comp->real_range;
 	im_offset = ((double)y / SCREEN_HEIGHT) * comp->im_range;
 	if (key == SCROLL_IN || key == KEY_ZOOM_IN)
 	{
@@ -35,7 +35,7 @@ void	handle_zoom(t_data *data, int key, int x, int y)
 		comp->im_start -= im_offset / 10;
 		comp->im_end += (comp->im_range - im_offset) / 10;
 	}
-	update_range(comp, data->screen_width);
+	update_range(comp);
 }
 
 static void	handle_weird_mandelbrot(t_data *data)

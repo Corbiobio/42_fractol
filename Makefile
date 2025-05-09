@@ -67,8 +67,7 @@ clean:
 
 fclean:
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) clean
-	rm -f $(NAME)
+	rm -rf $(OBJ_DIR) $(NAME) .NotRelink
 
 re:
 	$(MAKE) fclean

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:31 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/08 10:37:18 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:10:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	set_julia_value(t_data *data, char **av)
 	comp->im_end = 1.125;
 	comp->julia_c_real = parse_str_to_double(av[2]);
 	comp->julia_c_im = parse_str_to_double(av[3]);
-	update_range(comp, data->screen_width);
+	update_range(comp);
 }
 
 int	main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:23:03 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:15:11 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct t_data
 	void		*mlx_wind;
 	t_img		*img;
 	t_complex	*comp;
-	int			screen_width;
 	int			max_iteration;
 	t_fract_id	fractal_id;
 	int			has_smooth_gradient;
@@ -62,8 +61,19 @@ typedef struct t_data
 	double		(*fractal_func)(t_complex*, int);
 }	t_data;
 
+typedef struct s_line_data
+{
+	t_img *img;
+	t_complex comp;
+	double (*fractal_func)(t_complex*, int);
+	t_data *data;
+	int y_start;
+	int y_stop;
+}	t_line_data;
+
 //screen
-# define SCREEN_HEIGHT 720
+# define SCREEN_HEIGHT ((double)1080)
+# define SCREEN_WIDTH ((double)(16.0 / 9 * SCREEN_HEIGHT))
 
 //mouse
 # define SCROLL_IN 4
@@ -85,8 +95,7 @@ typedef struct t_data
 # define PARAM_ERROR 100
 
 //fractol
-void			calcul_fractal(t_img *img, t_complex *comp,
-					double (fractal_func)(t_complex*, int), t_data *data);
+void			calcul_fractal(t_data *data);
 void			draw_fractal(t_data *data);
 
 //fractal
@@ -133,7 +142,7 @@ t_data			*init_data(t_fract_id id);
 //utils
 double			ft_abs_d(double n);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-void			update_range(t_complex *comp, int screen_width);
+void			update_range(t_complex *comp);
 double			(*get_fractal_func(t_fract_id id, t_data *data))(
 					t_complex *comp, int max_iteation);
 int				exit_close_free_mlx_and_data(t_data *data);

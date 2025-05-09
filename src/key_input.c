@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/03/06 18:25:40 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:03:01 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	handle_all_key_input(int key, t_data *data)
 	}
 	else if (key == KEY_ZOOM_IN || key == KEY_ZOOM_OUT)
 	{
-		handle_zoom(data, key, data->screen_width / 2, SCREEN_HEIGHT / 2);
+		handle_zoom(data, key, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		draw_fractal(data);
 	}
 	else if (key == KEY_ADD_ITER
