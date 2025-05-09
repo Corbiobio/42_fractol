@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/09 16:15:11 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:52:15 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_line_data
 	int y_start;
 	int y_stop;
 }	t_line_data;
+
+# define PI_2 6.28318
 
 //screen
 # define SCREEN_HEIGHT ((double)1080)
