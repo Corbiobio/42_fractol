@@ -24,7 +24,8 @@ C_FILE = \
 	fractal/weird_mandelbrot.c\
 	color/color.c\
 	color/color_set_1.c\
-	color/color_set_2.c
+	color/color_set_2.c\
+	color/color_set_3.c
 
 SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
 
@@ -56,7 +57,7 @@ libft:
 mlx:
 	$(MAKE) all -C $(MLX_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)$(NAME).h Makefile
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)$(NAME).h $(INCLUDE_DIR)color.h Makefile
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -I/usr/include -Imlx_linux -c $< -o $@
 
@@ -83,5 +84,5 @@ val:
 
 benchmark:
 	$(MAKE)
-	valgrind --tool=cachegrind --cachegrind-out-file=benchmark ./$(NAME) mandelbrot 
+	valgrind --tool=cachegrind --cachegrind-out-file=benchmark ./$(NAME) mandelbrot
 	callgrind_annotate benchmark

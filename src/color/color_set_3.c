@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   color_set_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 17:28:58 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/12 17:09:30 by edarnand         ###   ########.fr       */
+/*   Created: 2025/05/12 17:07:59 by edarnand          #+#    #+#             */
+/*   Updated: 2025/05/12 17:11:49 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
 #include "color.h"
+#include <math.h>
 
-unsigned int	get_color_form_palet(double index, int index_func)
+void	color_11(double index, double *rgb)
 {
-	static void	(*color[COLOR_AMOUNT])(double, double *) = {&color_1, &color_2, &color_3,
-		&color_4, &color_5, &color_6, &color_7, &color_8, &color_9, &color_10,
-		&color_11};
-	double		rgb[3];
-
-	color[index_func](index, rgb);
-	return (create_rgb(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255));
+	index /= 30;
+	index = index - (int)index;
+	rgb[0] = 0.36 + 0.35 * cos(PI_2 * (3.1415 * index + 0.83));
+	rgb[1] = 0.5 + 0.5 * cos(PI_2 * (1.9 * index + 0.16));
+	rgb[2] = 0.6 + -0.4 * cos(PI_2 * (3.1415 * index + -0.7));
 }

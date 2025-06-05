@@ -6,20 +6,21 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:03:22 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/09 17:53:00 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:12:08 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "color.h"
 #include <math.h>
 
 void	color_1(double index, double *rgb)
 {
 	index /= 20;
 	index = index - (int)index;
-	rgb[0] = 0.36 + 0.35 * cos(PI_2 * (3.1415 * index + 0.83));
-	rgb[1] = 0.5 + 0.5 * cos(PI_2 * (1.9 * index + 0.16));
-	rgb[2] = 0.6 + -0.4 * cos(PI_2 * (3.1415 * index + -0.7));
+
+	rgb[0] = 0.775 + 0.225 * cos(PI_2 * (1.0 * index + 0.0));
+	rgb[1] = 0.9 + 0.1 * cos(PI_2 * (1.0 * index + 0.0));
+	rgb[2] = 1.0 + 0.0 * cos(PI_2 * (1.0 * index + 0.0));
 }
 
 void	color_2(double index, double *rgb)
@@ -42,11 +43,11 @@ void	color_3(double index, double *rgb)
 
 void	color_4(double index, double *rgb)
 {
-	index /= 40;
+	index /= 25;
 	index = index - (int)index;
-	rgb[0] = 0.5 + 0.5 * cos(PI_2 * (0.1 * index + 0.0));
-	rgb[1] = 0.5 + 0.5 * cos(PI_2 * (0.5 * index + 0.0));
-	rgb[2] = 0.0 + 0.0 * cos(PI_2 * (0.0 * index + 0.0));
+	rgb[0] = 0.600 + -0.200 * cos(PI_2 * (2.000 * index + 0.250));
+	rgb[1] = 0.600 + -0.200 * cos(PI_2 * (2.000 * index + 0.500));
+	rgb[2] = 0.600 + -0.200 * cos(PI_2 * (2.000 * index + 0.750));
 }
 
 void	color_5(double index, double *rgb)
