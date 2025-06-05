@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/05 17:47:52 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:11:31 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ typedef struct s_line_data
 # define KEY_TOGGLE_GRADIENT 'q'
 # define KEY_INCREASE_COLORSET 'c'
 # define KEY_DECREASE_COLORSET 'x'
+# define KEY_SCREENSHOT 'p'
 # define PARAM_ERROR 100
 
 //fractol
-void			calcul_fractal(t_data *data);
 void			draw_fractal(t_data *data);
 
 //fractal
@@ -132,6 +132,9 @@ void			print_notice(void);
 
 //init_data
 t_data			*init_data(t_fract_id id);
+
+//take_screenshot
+void	take_screenshot(t_data *data);
 
 //utils
 double			ft_abs_d(double n);

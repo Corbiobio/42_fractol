@@ -6,58 +6,19 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 10:35:38 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/05 17:56:43 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:22:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "color.h"
 #include "mlx.h"
-#include <fcntl.h>
 #include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-void write_bmp_header(int fd, int width, int height)
-{
-    unsigned char header[54] = {0};
-    int filesize = 54 + 4 * width * height;
-
-    header[0] = 'B';
-    header[1] = 'M';
-    *(int*)&header[2] = filesize;
-    header[10] = 54;
-    header[14] = 40;
-    *(int*)&header[18] = width;
-    *(int*)&header[22] = -height;
-    header[26] = 1;
-    header[28] = 32;
-    write(fd, header, 54);
-}
-
-void	draw_fractal(t_data *data)
-{
-	calcul_fractal(data);
-	mlx_put_image_to_window(data->mlx, data->mlx_wind,
-		data->img->img, 0, 0);
-	int fd = open("screen.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-    if (fd < 0)
-    {
-        write(2, "Failed to open file\n", 20);
-        return ;
-    }
-    write_bmp_header(fd, SCREEN_WIDTH, SCREEN_HEIGHT);
-    write(fd, data->img->addr, SCREEN_HEIGHT * data->img->line_length);
-    close(fd);
-}
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
-	char	*pt;
-
-	pt = img->addr + (img->line_length * y + x * img->bits_per_pixel);
-	*(unsigned int *)pt = color;
+	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) = color;
 }
 
 void	*calc_line(void *line_data)
@@ -99,21 +60,12 @@ void	*calc_line(void *line_data)
 void	calcul_fractal(t_data *data)
 {
 	const int	y_per_cpu = SCREEN_HEIGHT / CPU;
-	t_line_data	line;
 	t_line_data	lines[CPU];
 	pthread_t	thrs[CPU];
 	int			i;
 
 	i = 0;
 	data->comp->im_curr = data->comp->im_start;
-
-	line.img = data->img;
-	line.fractal_func = data->fractal_func;
-	line.data = data;
-	line.comp = *data->comp;
-	line.y_start = i * y_per_cpu;
-	line.y_stop = i * y_per_cpu + y_per_cpu;
-
 	while (i < CPU)
 	{
 		lines[i].img = data->img;
@@ -138,4 +90,16 @@ void	calcul_fractal(t_data *data)
 		pthread_join(thrs[i], NULL);
 		i++;
 	}
+}
+
+void	draw_fractal(t_data *data)
+{
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	calcul_fractal(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_wind,
+		data->img->img, 0, 0);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
+	printf("%f\n", tdiff);
 }

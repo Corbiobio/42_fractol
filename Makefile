@@ -2,7 +2,7 @@
 
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -16,6 +16,7 @@ C_FILE = \
 	mouse_input.c\
 	verif_param.c\
 	draw_fractal.c\
+	take_screenshot.c\
 	fractal/mandelbrot.c\
 	fractal/julia.c\
 	fractal/phoenix.c\

@@ -6,12 +6,14 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:06:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/05 17:50:50 by edarnand         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:08:20 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color.h"
 #include "fractol.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 static void	move_fractal(t_complex *comp, int key)
 {
@@ -51,7 +53,7 @@ static void	handle_iteration(int key, t_data *data)
 	else if (key == KEY_REMOVE_ITER)
 	{
 		data->max_iteration -= 10;
-		if (data->max_iteration >= 5)
+		if (data->max_iteration > 5)
 			data->max_iteration = 5;
 	}
 	draw_fractal(data);
@@ -100,6 +102,8 @@ int	handle_all_key_input(int key, t_data *data)
 		toggle_gradient(data);
 	else if (key == KEY_INCREASE_COLORSET || key == KEY_DECREASE_COLORSET)
 		change_colorset_id(data, key);
+	else if (key == KEY_SCREENSHOT)
+		take_screenshot(data);
 	else if (key == KEY_ESC)
 		exit_close_free_mlx_and_data(data);
 	return (0);
