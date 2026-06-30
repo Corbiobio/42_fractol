@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:27:52 by edarnand          #+#    #+#             */
-/*   Updated: 2025/06/05 18:11:31 by edarnand         ###   ########.fr       */
+/*   Updated: 2026/06/30 02:45:26 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ typedef struct s_line_data
 }	t_line_data;
 
 //screen
-# define SCREEN_HEIGHT ((double)1080)
-//# define SCREEN_HEIGHT ((double)2160)
-# define SCREEN_WIDTH ((double)(16.0 / 9 * SCREEN_HEIGHT))
+# define SCREEN_RATIO (double)(16.0/9.0)
+# define SCREEN_HEIGHT ((double)720)
+# define SCREEN_WIDTH ((double)(SCREEN_RATIO * SCREEN_HEIGHT))
 
 //mouse
 # define SCROLL_IN 4
@@ -99,6 +99,7 @@ typedef struct s_line_data
 # define KEY_INCREASE_COLORSET 'c'
 # define KEY_DECREASE_COLORSET 'x'
 # define KEY_SCREENSHOT 'p'
+# define KEY_PRINTCOORD 'y'
 # define PARAM_ERROR 100
 
 //fractol

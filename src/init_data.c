@@ -6,7 +6,7 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:31:15 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/09 16:11:24 by edarnand         ###   ########.fr       */
+/*   Updated: 2026/06/30 02:42:29 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static t_complex	*init_complex()
 		return (NULL);
 	comp->real_start = -3;
 	comp->real_end = 1.4;
-	comp->im_start = -1.2375;
-	comp->im_end = 1.2375;
+
+	double temp = 4.4 / SCREEN_RATIO / 2;
+	comp->im_start = -temp;
+	comp->im_end = temp;
 	update_range(comp);
 	return (comp);
 }
