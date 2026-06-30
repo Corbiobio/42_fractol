@@ -6,17 +6,37 @@
 /*   By: edarnand <edarnand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:11:53 by edarnand          #+#    #+#             */
-/*   Updated: 2025/05/09 16:10:39 by edarnand         ###   ########.fr       */
+/*   Updated: 2026/06/30 03:02:36 by edarnand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
+
+void	count_same(int x, int y)
+{
+	static int old_x = 0;
+	static int old_y = 0;
+	static int count = 1;
+
+	if (x == old_x && y == old_y)
+		++count;
+	else
+	{
+		printf("x: %d, y: %d, count: %d\n", old_x, old_y, count);
+		old_x = x;
+		old_y = y;
+		count = 1;
+	}
+}
 
 void	handle_zoom(t_data *data, int key, int x, int y)
 {
 	t_complex	*comp;
 	double		real_offset;
 	double		im_offset;
+
+	count_same(x, y);
 
 	comp = data->comp;
 	real_offset = ((double)x / SCREEN_WIDTH) * comp->real_range;
