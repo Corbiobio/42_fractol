@@ -51,7 +51,14 @@ MLX_FLAG = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11
 INC = -I $(INC_DIR) -I $(LIBFT_DIR)include/ -I $(MLX_DIR)
 
 #__rules__
-all: $(NAME)
+all: libft mlx $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(MLX_FLAG) -lm $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME)
+
+$(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 libft:
 	$(MAKE) -C $(LIBFT_DIR)
@@ -59,12 +66,8 @@ libft:
 mlx:
 	$(MAKE) -C $(MLX_DIR)
 
-$(NAME): libft mlx $(OBJ)
-	$(CC) $(CFLAGS) $(MLX_FLAG) -lm $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME)
-
-$(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+img_generator: libft img_generator.c libattopng.c
+	$(CC) $(CFLAGS) -lm img_generator.c libattopng.c $(INC) $(LIBFT_LIB) -o img_generator
 
 benchmark:
 	$(MAKE)
@@ -85,4 +88,4 @@ re:
 
 -include $(DEP)
 
-.PHONY: all clean fclean re libft mlx run val benchmark
+.PHONY: all clean fclean re libft mlx img_generator benchmark
