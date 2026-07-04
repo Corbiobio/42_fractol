@@ -55,7 +55,7 @@ static void	handle_iteration(int key, t_data *data)
 	else if (key == KEY_REMOVE_ITER)
 	{
 		data->max_iteration -= 10;
-		if (data->max_iteration > 5)
+		if (data->max_iteration < 5)
 			data->max_iteration = 5;
 	}
 	draw_fractal(data);
