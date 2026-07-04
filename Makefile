@@ -1,14 +1,14 @@
-.PHONY: all clean fclean re libft mlx run val benchmark
-
 NAME = fractol
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native
 
+#__directory__
 SRC_DIR = src/
 OBJ_DIR = obj/
-INCLUDE_DIR = include/
+INC_DIR = include/
 
-C_FILE = \
+#__src__
+SRC_FILES = \
 	fractol.c\
 	utils.c\
 	init_data.c\
@@ -28,11 +28,16 @@ C_FILE = \
 	color/color_set_2.c\
 	color/color_set_3.c
 
-SRC_FILE := $(addprefix $(SRC_DIR), $(C_FILE))
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
-OBJ = $(C_FILE:.c=.o)
-OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
+#__obj__
+OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
+#__dependence__
+DEP = $(OBJ:.o=.d)
+
+#__lib__
 LIBFT_NAME = libft.a
 LIBFT_DIR = libft/
 LIBFT_LIB = $(LIBFT_DIR)$(LIBFT_NAME)
@@ -40,50 +45,38 @@ LIBFT_LIB = $(LIBFT_DIR)$(LIBFT_NAME)
 MLX_NAME = libmlx_Linux.a
 MLX_DIR = mlx_linux/
 MLX_LIB = $(MLX_DIR)$(MLX_NAME)
+MLX_FLAG = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11
 
-INC = -I $(INCLUDE_DIR) -I $(LIBFT_DIR)include/ -I $(MLX_DIR)
+#__include__
+INC = -I $(INC_DIR) -I $(LIBFT_DIR)include/ -I $(MLX_DIR)
 
-all:
-	$(MAKE) $(NAME)
-
-$(NAME): libft mlx .NotRelink
-
-.NotRelink: $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
-	$(CC) $(CFLAGS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz $(INC) $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME) 
-	touch .NotRelink
+#__rules__
+all: $(NAME)
 
 libft:
-	$(MAKE) $(LIB_NAME) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
 mlx:
-	$(MAKE) all -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE_DIR)$(NAME).h $(INCLUDE_DIR)color.h Makefile
+$(NAME): libft mlx $(OBJ)
+	$(CC) $(CFLAGS) $(MLX_FLAG) -lm $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME)
+
+$(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -I/usr/include -Imlx_linux -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
+#__cleaning__
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
 	rm -rf $(OBJ_DIR)
 
 fclean:
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -rf $(OBJ_DIR) $(NAME) .NotRelink
+	rm -rf $(OBJ_DIR) $(NAME)
 
 re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-run:
-	$(MAKE)
-	./$(NAME) mandelbrot
+-include $(DEP)
 
-val:
-	$(MAKE)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) mandelbrot
-
-benchmark:
-	$(MAKE)
-	valgrind --tool=cachegrind --cachegrind-out-file=benchmark ./$(NAME) mandelbrot
-	callgrind_annotate benchmark
+.PHONY: all clean fclean re libft mlx run val benchmark
