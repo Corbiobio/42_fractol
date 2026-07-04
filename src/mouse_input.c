@@ -36,7 +36,11 @@ void	handle_zoom(t_data *data, int key, int x, int y)
 	double		real_offset;
 	double		im_offset;
 
-	count_same(x, y);
+	if (data->out != -1)
+	{
+		dprintf(data->out, "%d %d %d\n", key == SCROLL_IN || key == KEY_ZOOM_IN, x, y);
+		printf("%d %d\n", x, y);
+	}
 
 	comp = data->comp;
 	real_offset = ((double)x / SCREEN_WIDTH) * comp->real_range;

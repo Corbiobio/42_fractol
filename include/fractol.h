@@ -59,6 +59,7 @@ typedef struct t_data
 	int			has_smooth_gradient;
 	int			color_func_id;
 	double		(*fractal_func)(t_complex*, int);
+	int			out;
 }	t_data;
 
 typedef struct s_line_data
@@ -75,6 +76,9 @@ typedef struct s_line_data
 # define SCREEN_RATIO (double)(16.0/9.0)
 # define SCREEN_HEIGHT ((double)720)
 # define SCREEN_WIDTH ((double)(SCREEN_RATIO * SCREEN_HEIGHT))
+
+//file
+# define OUT_NAME "fractal.frt"
 
 //mouse
 # define SCROLL_IN 4

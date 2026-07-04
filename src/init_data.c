@@ -15,6 +15,7 @@
 #include "mlx.h"
 #include <X11/X.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 static t_complex	*init_complex()
 {
@@ -84,6 +85,7 @@ t_data	*init_data(t_fract_id id)
 	data->fractal_func = get_fractal_func(id, data);
 	data->comp = init_complex();
 	data->mlx = mlx_init();
+	data->out = open(OUT_NAME, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	if (data->mlx != NULL)
 	{
 		data->mlx_wind = mlx_new_window(data->mlx, SCREEN_WIDTH,
