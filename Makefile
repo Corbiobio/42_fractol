@@ -1,6 +1,6 @@
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native
+CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native -MMD -MP
 
 #__directory__
 SRC_DIR = src/
