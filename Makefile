@@ -66,6 +66,12 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
+benchmark:
+	$(MAKE)
+	valgrind --tool=cachegrind --cachegrind-out-file=bench ./$(NAME) mandelbrot
+	callgrind_annotate bench > benchmark
+	rm bench
+
 #__cleaning__
 clean:
 	rm -rf $(OBJ_DIR)
