@@ -13,8 +13,6 @@
 #include "color.h"
 #include "fractol.h"
 #include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
 #include <unistd.h>
 
 static void	move_fractal(t_complex *comp, int key)
@@ -85,39 +83,6 @@ static void	change_colorset_id(t_data *data, int key)
 	draw_fractal(data);
 }
 
-//from https://stackoverflow.com/a/3974138
-void printBits(size_t const size, void const * const ptr)
-{
-    unsigned char *b = (unsigned char*) ptr;
-    unsigned char byte;
-    int i, j;
-
-    for (i = size-1; i >= 0; i--) {
-        for (j = 7; j >= 0; j--) {
-            byte = (b[i] >> j) & 1;
-            printf("%u", byte);
-        }
-    }
-    puts("");
-}
-
-//from https://stackoverflow.com/a/4743295
-double long_to_double(long mask) {
-	double d = 0;
-	long long t = (*(long long*)&d) | mask;
-	return *(double*)&t;
-}
-
-void binary_to_double(char* t)
-{
-	int len = strlen(t);
-	long l = 0;
-	for (int i = 0; i < len; ++i)
-		l |= ((long)(t[i] - '0') << (len - i - 1));
-	double d = long_to_double(l);
-	printf("%f\n", d);
-}
-
 int	handle_all_key_input(int key, t_data *data)
 {
 	if (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
@@ -139,13 +104,6 @@ int	handle_all_key_input(int key, t_data *data)
 		change_colorset_id(data, key);
 	else if (key == KEY_SCREENSHOT)
 		take_screenshot(data);
-	else if (key == KEY_PRINTCOORD)
-	{
-		printBits(sizeof(double), &data->comp->real_start);
-		printBits(sizeof(double), &data->comp->real_end);
-		printBits(sizeof(double), &data->comp->im_start);
-		printBits(sizeof(double), &data->comp->im_end);
-	}
 	else if (key == KEY_ESC)
 		exit_close_free_mlx_and_data(data);
 	return (0);

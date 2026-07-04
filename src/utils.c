@@ -12,8 +12,8 @@
 
 #include "fractol.h"
 #include "mlx.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 double	ft_abs_d(double n)
 {
@@ -67,6 +67,8 @@ double	(*get_fractal_func(t_fract_id id, t_data *data))(
 
 int	exit_close_free_mlx_and_data(t_data *data)
 {
+	if (data->out != -1)
+		close(data->out);
 	mlx_loop_end(data->mlx);
 	mlx_destroy_image(data->mlx, data->img->img);
 	mlx_destroy_window(data->mlx, data->mlx_wind);

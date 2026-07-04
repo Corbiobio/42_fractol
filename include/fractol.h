@@ -74,7 +74,7 @@ typedef struct s_line_data
 
 //screen
 # define SCREEN_RATIO (double)(16.0/9.0)
-# define SCREEN_HEIGHT ((double)720)
+# define SCREEN_HEIGHT ((double)1080)
 # define SCREEN_WIDTH ((double)(SCREEN_RATIO * SCREEN_HEIGHT))
 
 //file
@@ -103,7 +103,6 @@ typedef struct s_line_data
 # define KEY_INCREASE_COLORSET 'c'
 # define KEY_DECREASE_COLORSET 'x'
 # define KEY_SCREENSHOT 'p'
-# define KEY_PRINTCOORD 'y'
 # define PARAM_ERROR 100
 
 //fractol
