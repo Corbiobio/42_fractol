@@ -53,7 +53,7 @@ INC = -I $(INC_DIR) -I $(LIBFT_DIR)include/ -I $(MLX_DIR)
 #__rules__
 all: libft mlx $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT_LIB) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(MLX_FLAG) -lm $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME)
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
