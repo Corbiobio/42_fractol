@@ -21,33 +21,29 @@ void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) = color;
 }
 
-void	*calc_line(void *line_data)
+void	*thr_calc(void *line_data)
 {
 	t_line_data	*line = (t_line_data *)line_data;
-	const int	max_iteration = line->data->max_iteration;
-	double		iteration;
+	const int	max_iteration = line->max_iteration;
+	const int	color_func_id = line->color_func_id;
+	int			y = line->y_start;
 
-	int			x;
-	int			y;
-
-	y = line->y_start;
 	while (y < line->y_stop)
 	{
-		x = 0;
 		line->comp.real_curr = line->comp.real_start;
+		double x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			iteration = line->fractal_func(&line->comp, max_iteration);
+			double iteration = line->fractal_func(&line->comp, max_iteration);
 			if (iteration == max_iteration)
 				draw_pixel(line->img, x, y, 0x000000);
 			else
-				draw_pixel(line->img, x, y, get_color_form_palet(iteration,
-						line->data->color_func_id));
+				draw_pixel(line->img, x, y, get_color_form_palet(iteration, color_func_id));
 			line->comp.real_curr += line->comp.real_range_per_px;
-			x++;
+			++x;
 		}
 		line->comp.im_curr += line->comp.im_range_per_px;
-		y++;
+		++y;
 	}
 	return (NULL);
 }
@@ -67,7 +63,8 @@ void	calcul_fractal(t_data *data)
 	{
 		lines[i].img = data->img;
 		lines[i].fractal_func = data->fractal_func;
-		lines[i].data = data;
+		lines[i].color_func_id = data->color_func_id;
+		lines[i].max_iteration = data->max_iteration;
 		lines[i].comp = *data->comp;
 		lines[i].y_start = i * y_per_thr;
 		lines[i].comp.im_curr += y_per_thr * lines[i].comp.im_range_per_px * i;
@@ -79,7 +76,7 @@ void	calcul_fractal(t_data *data)
 	i = 0;
 	while (i < max_y)
 	{
-		pthread_create(thrs + i, NULL, &calc_line, lines + i);
+		pthread_create(thrs + i, NULL, &thr_calc, lines + i);
 		++i;
 	}
 	i = 0;
