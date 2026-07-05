@@ -75,28 +75,19 @@ int	is_in_mandelbrot(double c_real, double c_im, int max_iteration)
 void	budha_calc(t_data *data)
 {
 	srand(1);
-	int			y = 0;
 
-	while (y < SCREEN_HEIGHT)
-	{
-		double x = 0;
-		while (x < SCREEN_WIDTH)
-		{
-			draw_pixel(data->img, x, y, 0);
-			++x;
+	for (int i = 0; i < SCREEN_WIDTH; ++i) {
+		for (int J = 0; J < SCREEN_HEIGHT; ++J) {
+			draw_pixel(data->img, i, J, 0);
 		}
-		++y;
 	}
-	for (int i = 0; i < 1000000; ++i)
+	for (int i = 0; i < 200000; ++i)
 	{
-		const double c_real = fmod((rand() / 10000000.0), 4.0) - 2;
-		const double c_im = fmod((rand() / 10000000.0), 4.0) - 2;
-			//printf("%f %f\n", c_real, c_im);
+		const double c_real = fmod((rand() / 10000000.0), 4.0) - 2.0;
+		const double c_im = fmod((rand() / 10000000.0), 4.0) - 2.0;
 
 		if (is_in_mandelbrot(c_real, c_im, data->max_iteration))
-		{
 			continue;
-		}
 
 		double	real = 0;
 		double	im = 0;
@@ -113,14 +104,10 @@ void	budha_calc(t_data *data)
 			if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
 				continue;
 			add_to_pixel(data->img, x, y, 0x0F0F0F);
-			//add_to_pixel(data->img, x, y, 2147483647);
-			//draw_pixel(data->img, x, y, 2147483647);
 		}
 	}
 
-printf("done\n");
-
-
+	printf("done\n");
 }
 
 #define TRH 1
