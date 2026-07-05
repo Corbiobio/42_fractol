@@ -38,9 +38,6 @@ void	*calc_line(void *line_data)
 		while (x < SCREEN_WIDTH)
 		{
 			iteration = line->fractal_func(&line->comp, max_iteration);
-			//if (y == line->y_stop - 1)
-			//	draw_pixel(line->img, x, y, 0x11111);
-			//else
 			if (iteration == max_iteration)
 				draw_pixel(line->img, x, y, 0x000000);
 			else
@@ -55,37 +52,40 @@ void	*calc_line(void *line_data)
 	return (NULL);
 }
 
-#define CPU 8
+#define TRH 1
 
 void	calcul_fractal(t_data *data)
 {
-	const int	y_per_cpu = SCREEN_HEIGHT / CPU;
-	t_line_data	lines[CPU];
-	pthread_t	thrs[CPU];
+	const int	max_y = TRH > SCREEN_HEIGHT ? SCREEN_HEIGHT : TRH;
+	const int	y_per_thr = SCREEN_HEIGHT / max_y;
+	t_line_data	lines[TRH];
+	pthread_t	thrs[TRH];
 	int			i;
 
 	i = 0;
 	data->comp->im_curr = data->comp->im_start;
-	while (i < CPU)
+	while (i < max_y)
 	{
 		lines[i].img = data->img;
 		lines[i].fractal_func = data->fractal_func;
 		lines[i].data = data;
 		lines[i].comp = *data->comp;
-		lines[i].y_start = i * y_per_cpu;
-		lines[i].comp.im_curr += y_per_cpu * lines[i].comp.im_range_per_px * i;
-		lines[i].y_stop = i * y_per_cpu + y_per_cpu;
-		i++;
+		lines[i].y_start = i * y_per_thr;
+		lines[i].comp.im_curr += y_per_thr * lines[i].comp.im_range_per_px * i;
+		lines[i].y_stop = i * y_per_thr + y_per_thr;
+		++i;
 	}
+	--i;
+	lines[i].y_stop = SCREEN_HEIGHT;
 
 	i = 0;
-	while (i < CPU)
+	while (i < max_y)
 	{
 		pthread_create(thrs + i, NULL, &calc_line, lines + i);
 		i++;
 	}
 	i = 0;
-	while (i < CPU)
+	while (i < max_y)
 	{
 		pthread_join(thrs[i], NULL);
 		i++;
@@ -94,12 +94,14 @@ void	calcul_fractal(t_data *data)
 
 void	draw_fractal(t_data *data)
 {
-	struct timespec start, end;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	//struct timespec start, end;
+	//clock_gettime(CLOCK_MONOTONIC, &start);
+
 	calcul_fractal(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind,
 		data->img->img, 0, 0);
-	clock_gettime(CLOCK_MONOTONIC, &end);
-	double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
-	printf("%f\n", tdiff);
+
+	//clock_gettime(CLOCK_MONOTONIC, &end);
+	//double tdiff = (end.tv_sec - start.tv_sec) + 1e-9*(end.tv_nsec - start.tv_nsec);
+	//printf("%f\n", tdiff);
 }
