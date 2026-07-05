@@ -75,32 +75,47 @@ int	is_in_mandelbrot(double c_real, double c_im, int max_iteration)
 void	budha_calc(t_data *data)
 {
 	srand(1);
+	int			y = 0;
 
-	for (int i = 0; i < 100000; ++i)
+	while (y < SCREEN_HEIGHT)
 	{
-		const double c_real = fmod((rand() / 10000000.0), 2.0);
-		const double c_im = fmod((rand() / 10000000.0), 2.0);
+		double x = 0;
+		while (x < SCREEN_WIDTH)
+		{
+			draw_pixel(data->img, x, y, 0);
+			++x;
+		}
+		++y;
+	}
+	for (int i = 0; i < 1000000; ++i)
+	{
+		const double c_real = fmod((rand() / 10000000.0), 4.0) - 2;
+		const double c_im = fmod((rand() / 10000000.0), 4.0) - 2;
+			//printf("%f %f\n", c_real, c_im);
 
-		if (!is_in_mandelbrot(c_real, c_im, data->max_iteration))
+		if (is_in_mandelbrot(c_real, c_im, data->max_iteration))
 		{
 			continue;
 		}
 
-		//double	real = 0;
-		//double	im = 0;
-		//double	tmp_im;
-		//for (int j = 0; j < data->max_iteration; ++j)
-		//{
-		//	tmp_im = im;
-		//	im = 2 * real * im + c_im;
-		//	real = real * real - tmp_im * tmp_im + c_real;
+		double	real = 0;
+		double	im = 0;
+		double	tmp_im;
+		for (int j = 0; j < data->max_iteration; ++j)
+		{
+			tmp_im = im;
+			im = 2 * real * im + c_im;
+			real = real * real - tmp_im * tmp_im + c_real;
+
 			int x;
 			int y;
-			fractal_coord_to_img_coord(data->comp, c_real, c_im, &x, &y);
+			fractal_coord_to_img_coord(data->comp, real, im, &x, &y);
 			if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
 				continue;
 			add_to_pixel(data->img, x, y, 0x0F0F0F);
-		//}
+			//add_to_pixel(data->img, x, y, 2147483647);
+			//draw_pixel(data->img, x, y, 2147483647);
+		}
 	}
 
 printf("done\n");
