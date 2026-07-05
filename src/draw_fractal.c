@@ -60,9 +60,8 @@ void	calcul_fractal(t_data *data)
 	const int	y_per_thr = SCREEN_HEIGHT / max_y;
 	t_line_data	lines[TRH];
 	pthread_t	thrs[TRH];
-	int			i;
+	int			i = 0;
 
-	i = 0;
 	data->comp->im_curr = data->comp->im_start;
 	while (i < max_y)
 	{
@@ -75,20 +74,19 @@ void	calcul_fractal(t_data *data)
 		lines[i].y_stop = i * y_per_thr + y_per_thr;
 		++i;
 	}
-	--i;
-	lines[i].y_stop = SCREEN_HEIGHT;
+	lines[i - 1].y_stop = SCREEN_HEIGHT;
 
 	i = 0;
 	while (i < max_y)
 	{
 		pthread_create(thrs + i, NULL, &calc_line, lines + i);
-		i++;
+		++i;
 	}
 	i = 0;
 	while (i < max_y)
 	{
 		pthread_join(thrs[i], NULL);
-		i++;
+		++i;
 	}
 }
 
