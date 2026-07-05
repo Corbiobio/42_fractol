@@ -79,7 +79,7 @@ t_data	*init_data(t_fract_id id)
 	data = ft_calloc(1, sizeof(t_data));
 	if (data == NULL)
 		return (NULL);
-	data->max_iteration = 2000;
+	data->max_iteration = 1000;
 	data->has_smooth_gradient = 0;
 	data->fractal_id = id;
 	data->fractal_func = get_fractal_func(id, data);

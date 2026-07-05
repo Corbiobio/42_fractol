@@ -17,15 +17,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <strings.h>
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
 	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) = color;
-}
-
-void	add_to_pixel(t_img *img, int x, int y, unsigned int color)
-{
-	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) += color;
 }
 
 void	*thr_calc(void *line_data)
@@ -75,26 +71,22 @@ int	is_in_mandelbrot(double c_real, double c_im, int max_iteration)
 void	budha_calc(t_data *data)
 {
 	srand(1);
+	int arr[SCREEN_WIDTH][SCREEN_HEIGHT];
+	bzero(arr, sizeof(arr));
 
-	for (int i = 0; i < SCREEN_WIDTH; ++i) {
-		for (int J = 0; J < SCREEN_HEIGHT; ++J) {
-			draw_pixel(data->img, i, J, 0);
-		}
-	}
-	for (int i = 0; i < 200000; ++i)
+	for (int i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT) * 5; ++i)
 	{
-		const double c_real = fmod((rand() / 10000000.0), 4.0) - 2.0;
-		const double c_im = fmod((rand() / 10000000.0), 4.0) - 2.0;
+		const double c_real = fmod((rand() / 10000000.0), 4.0) - 2;
+		const double c_im = fmod((rand() / 10000000.0), 4.0) - 2;
 
 		if (is_in_mandelbrot(c_real, c_im, data->max_iteration))
 			continue;
 
 		double	real = 0;
 		double	im = 0;
-		double	tmp_im;
 		for (int j = 0; j < data->max_iteration; ++j)
 		{
-			tmp_im = im;
+			double tmp_im = im;
 			im = 2 * real * im + c_im;
 			real = real * real - tmp_im * tmp_im + c_real;
 
@@ -103,7 +95,24 @@ void	budha_calc(t_data *data)
 			fractal_coord_to_img_coord(data->comp, real, im, &x, &y);
 			if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
 				continue;
-			add_to_pixel(data->img, x, y, 0x0F0F0F);
+			arr[x][y]++;
+		}
+	}
+
+	int max = 0;
+	for (int i = 0; i < SCREEN_WIDTH; ++i) {
+		for (int j = 0; j < SCREEN_HEIGHT; ++j) {
+			if (arr[i][j] > max)
+				max = arr[i][j];
+
+		}
+	}
+
+	for (int i = 0; i < SCREEN_WIDTH; ++i) {
+		for (int j = 0; j < SCREEN_HEIGHT; ++j) {
+			double factor = ((double)arr[i][j] / max) ;
+			factor = fmax(factor - 0.08, 0) * 0xFF;
+			draw_pixel(data->img, i, j, create_rgb(factor, factor, factor));
 		}
 	}
 
