@@ -16,6 +16,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
@@ -75,14 +76,13 @@ void	budha_calc(t_data *data)
 {
 	srand(1);
 
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < 100000; ++i)
 	{
-		const int c_real = rand() / 1000 % 4 - 2;
-		const int c_im = rand() / 1000 % 4 - 2;
+		const double c_real = fmod((rand() / 10000000.0), 2.0);
+		const double c_im = fmod((rand() / 10000000.0), 2.0);
 
 		if (!is_in_mandelbrot(c_real, c_im, data->max_iteration))
 		{
-
 			continue;
 		}
 
@@ -99,7 +99,7 @@ void	budha_calc(t_data *data)
 			fractal_coord_to_img_coord(data->comp, c_real, c_im, &x, &y);
 			if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
 				continue;
-			add_to_pixel(data->img, x, y, 0x010101);
+			add_to_pixel(data->img, x, y, 0x0F0F0F);
 		//}
 	}
 
