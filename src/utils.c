@@ -12,6 +12,8 @@
 
 #include "fractol.h"
 #include "mlx.h"
+#include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -27,12 +29,26 @@ unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 	return (r << 16 | g << 8 | b);
 }
 
+
+void fractal_coord_to_img_coord(t_complex* comp, double real, double im, int* real_out, int* im_out)
+{
+	double temp_real = (real - comp->real_start) / comp->real_range * SCREEN_WIDTH;
+	double temp_im = (im - comp->im_start) / comp->im_range * SCREEN_HEIGHT;
+
+	*real_out = round(temp_real);
+	*im_out = round(temp_im);
+}
+
 void	update_range(t_complex *comp)
 {
 	comp->im_range = comp->im_end - comp->im_start;
 	comp->real_range = comp->real_end - comp->real_start;
 	comp->im_range_per_px = comp->im_range / SCREEN_HEIGHT;
 	comp->real_range_per_px = comp->real_range / SCREEN_WIDTH;
+	//printf("%f %f\n", comp->real_start, comp->real_end);
+	//printf("%f %f\n", comp->im_start, comp->im_end);
+	//printf("%f %f\n", comp->im_range, comp->real_range);
+	//printf("%f %f\n", comp->im_range_per_px, comp->real_range_per_px);
 }
 
 double	(*get_fractal_func(t_fract_id id, t_data *data))(

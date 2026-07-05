@@ -15,10 +15,16 @@
 #include "mlx.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
 	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) = color;
+}
+
+void	add_to_pixel(t_img *img, int x, int y, unsigned int color)
+{
+	*(unsigned int *)(img->addr + (img->line_length * y + x * img->bits_per_pixel)) += color;
 }
 
 void	*thr_calc(void *line_data)
@@ -46,6 +52,60 @@ void	*thr_calc(void *line_data)
 		++y;
 	}
 	return (NULL);
+}
+
+int	is_in_mandelbrot(double c_real, double c_im, int max_iteration)
+{
+	double	real = 0;
+	double	im = 0;
+	double	index = 0;
+	double	tmp_im;
+
+	while (im * im + real * real < 16 && index < max_iteration)
+	{
+		tmp_im = im;
+		im = 2 * real * im + c_im;
+		real = real * real - tmp_im * tmp_im + c_real;
+		++index;
+	}
+	return (index == max_iteration);
+}
+
+void	budha_calc(t_data *data)
+{
+	srand(1);
+
+	for (int i = 0; i < 10000; ++i)
+	{
+		const int c_real = rand() / 1000 % 4 - 2;
+		const int c_im = rand() / 1000 % 4 - 2;
+
+		if (!is_in_mandelbrot(c_real, c_im, data->max_iteration))
+		{
+
+			continue;
+		}
+
+		//double	real = 0;
+		//double	im = 0;
+		//double	tmp_im;
+		//for (int j = 0; j < data->max_iteration; ++j)
+		//{
+		//	tmp_im = im;
+		//	im = 2 * real * im + c_im;
+		//	real = real * real - tmp_im * tmp_im + c_real;
+			int x;
+			int y;
+			fractal_coord_to_img_coord(data->comp, c_real, c_im, &x, &y);
+			if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
+				continue;
+			add_to_pixel(data->img, x, y, 0x010101);
+		//}
+	}
+
+printf("done\n");
+
+
 }
 
 #define TRH 1
@@ -92,7 +152,8 @@ void	draw_fractal(t_data *data)
 	//struct timespec start, end;
 	//clock_gettime(CLOCK_MONOTONIC, &start);
 
-	calcul_fractal(data);
+	//calcul_fractal(data);
+	budha_calc(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind,
 		data->img->img, 0, 0);
 

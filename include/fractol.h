@@ -67,14 +67,15 @@ typedef struct s_line_data
 	t_img *img;
 	t_complex comp;
 	double (*fractal_func)(t_complex*, int);
-	t_data *data;
+	int max_iteration;
+	int color_func_id;
 	int y_start;
 	int y_stop;
 }	t_line_data;
 
 //screen
 # define SCREEN_RATIO (double)(16.0/9.0)
-# define SCREEN_HEIGHT ((double)1080)
+# define SCREEN_HEIGHT ((double)480)
 # define SCREEN_WIDTH ((double)(SCREEN_RATIO * SCREEN_HEIGHT))
 
 //file
@@ -142,6 +143,7 @@ void	take_screenshot(t_data *data);
 
 //utils
 double			ft_abs_d(double n);
+void			fractal_coord_to_img_coord(t_complex* comp, double real, double im, int* x, int* y);
 unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
 void			update_range(t_complex *comp);
 double			(*get_fractal_func(t_fract_id id, t_data *data))(
