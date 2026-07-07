@@ -27,7 +27,7 @@ double	calc_mandelbrot_gradient(double c_real, double c_im)
 	}
 	if (index == MAX_ITER)
 		return (index);
-	return (index - log2(log2(im * im + real * real)));
+	return (32 + index - log2(log2(im * im + real * real)));
 }
 
 void	update_range(t_complex *comp)
