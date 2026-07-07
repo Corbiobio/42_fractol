@@ -174,7 +174,7 @@ void	budha_calc(t_data *data)
 	printf("done\n");
 }
 
-#define TRH 1
+#define TRH 150
 
 void	calcul_fractal(t_data *data)
 {

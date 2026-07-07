@@ -51,7 +51,7 @@ void init_complex(t_complex* comp)
 
 void	color_gradient(double index, double *rgb)
 {
-	index /= 20;
+	index /= 28;
 	index = index - (int)index;
 
 	rgb[0] = 0.775 + 0.225 * cos(TWO_PI * (1.0 * index + 0.0));

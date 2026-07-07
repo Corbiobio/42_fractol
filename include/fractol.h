@@ -75,7 +75,7 @@ typedef struct s_line_data
 
 //screen
 # define SCREEN_RATIO (double)(16.0/9.0)
-# define SCREEN_HEIGHT (480)
+# define SCREEN_HEIGHT (2880)
 # define SCREEN_WIDTH (int)(SCREEN_RATIO * SCREEN_HEIGHT)
 
 //file

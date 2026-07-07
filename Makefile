@@ -67,7 +67,7 @@ mlx:
 	$(MAKE) -C $(MLX_DIR)
 
 artcore: libft img_generator
-	./img_generator fractal.frt
+	./img_generator wallpaper.frt
 
 img_generator:
 	$(CC) $(CFLAGS) -lm img_generator.c libattopng.c $(INC) $(LIBFT_LIB) -o img_generator
