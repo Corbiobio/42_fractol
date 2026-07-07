@@ -12,6 +12,7 @@
 
 #include "fractol.h"
 #include <fcntl.h>
+#include <stdio.h>
 #include <unistd.h>
 
 void write_bmp_header(int fd, int width, int height)
@@ -41,5 +42,6 @@ void	take_screenshot(t_data *data)
 	}
 	write_bmp_header(fd, SCREEN_WIDTH, SCREEN_HEIGHT);
 	write(fd, data->img->addr, SCREEN_HEIGHT * data->img->line_length);
+	printf("screenshot taken\n");
 	close(fd);
 }
