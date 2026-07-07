@@ -1,6 +1,6 @@
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native -MMD -MP
+CFLAGS = -Wall -Werror -Wextra -O3 -flto -g3 -march=native
 
 #__directory__
 SRC_DIR = src/
@@ -58,7 +58,7 @@ $(NAME): $(OBJ) $(LIBFT_LIB) $(MLX_LIB)
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c Makefile
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -MP  $(INC) -c $< -o $@
 
 libft:
 	$(MAKE) -C $(LIBFT_DIR)
@@ -66,7 +66,10 @@ libft:
 mlx:
 	$(MAKE) -C $(MLX_DIR)
 
-img_generator: libft img_generator.c libattopng.c
+artcore: libft img_generator
+	./img_generator fractal.frt
+
+img_generator:
 	$(CC) $(CFLAGS) -lm img_generator.c libattopng.c $(INC) $(LIBFT_LIB) -o img_generator
 
 benchmark:
@@ -88,4 +91,4 @@ re:
 
 -include $(DEP)
 
-.PHONY: all clean fclean re libft mlx img_generator benchmark
+.PHONY: all clean fclean re libft mlx artcore img_generator benchmark

@@ -218,8 +218,8 @@ void	draw_fractal(t_data *data)
 	//struct timespec start, end;
 	//clock_gettime(CLOCK_MONOTONIC, &start);
 
-	//calcul_fractal(data);
-	budha_calc(data);
+	calcul_fractal(data);
+	//budha_calc(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_wind,
 		data->img->img, 0, 0);
 

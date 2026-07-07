@@ -84,6 +84,38 @@ void	zoom(t_complex* comp, bool zoom_in, int x, int y)
 	update_range(comp);
 }
 
+void	move(t_complex *comp, int key)
+{
+	double	real_offset;
+	double	im_offset;
+
+	if (key == KEY_UP)
+	{
+		im_offset = comp->im_range / 50;
+		comp->im_start -= im_offset;
+		comp->im_end -= im_offset;
+	}
+	else if (key == KEY_DOWN)
+	{
+		im_offset = comp->im_range / 50;
+		comp->im_start += im_offset;
+		comp->im_end += im_offset;
+	}
+	else if (key == KEY_LEFT)
+	{
+		real_offset = comp->real_range / 50;
+		comp->real_start -= real_offset;
+		comp->real_end -= real_offset;
+	}
+	else if (key == KEY_RIGHT)
+	{
+		real_offset = comp->real_range / 50;
+		comp->real_start += real_offset;
+		comp->real_end += real_offset;
+	}
+}
+
+
 void	fill_png(t_complex* comp, libattopng_t* png)
 {
 	int y = 0;
@@ -97,7 +129,7 @@ void	fill_png(t_complex* comp, libattopng_t* png)
 		{
 			double iteration = calc_mandelbrot_gradient(comp->real_curr, comp->im_curr);
 			if (iteration == MAX_ITER)
-				libattopng_set_pixel(png, x, y, RGB(200, 20, 30));
+				libattopng_set_pixel(png, x, y, 0);
 			else
 			{
 				double rgb[3];
@@ -115,11 +147,13 @@ void	fill_png(t_complex* comp, libattopng_t* png)
 
 int main(int ac, char** av)
 {
-	if (ac != 2)
+	int fd;
+
+	if (ac != 2 || (fd = open(av[1], O_RDONLY)) == -1)
+	{
+		printf("need a fractol output\n");
 		return EXIT_FAILURE;
-	int fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return EXIT_FAILURE;
+	}
 	libattopng_t* png = libattopng_new(SCREEN_WIDTH, SCREEN_HEIGHT, PNG_RGB);
 	if (png == NULL)
 		return EXIT_FAILURE;
@@ -131,11 +165,14 @@ int main(int ac, char** av)
 	char *endptr;
 	while ((buff = get_next_line(fd)) != NULL)
 	{
-		zoom(&comp, buff[0] - '0', strtol(buff + 2, &endptr, 10), strtol(endptr + 1, NULL, 10));
+		if (ft_isdigit(buff[0]))
+			zoom(&comp, buff[0] - '0', strtol(buff + 2, &endptr, 10), strtol(endptr + 1, NULL, 10));
+		else
+			move(&comp, buff[0]);
 		free(buff);
 	}
 	fill_png(&comp, png);
 
-	libattopng_save(png, "test_rgba.png");
+	libattopng_save(png, "fractol.png");
 	libattopng_destroy(png);
 }

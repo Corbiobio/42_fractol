@@ -2,6 +2,8 @@
 
 obj/
 img/
+custom_img/
+*.d
 
 fractol
 img_generator
@@ -11,4 +13,5 @@ benchmark
 
 *.bmp
 *.frt
+!wallpaper.frt
 *.png

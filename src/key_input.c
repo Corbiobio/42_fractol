@@ -13,6 +13,7 @@
 #include "color.h"
 #include "fractol.h"
 #include <fcntl.h>
+#include <stdio.h>
 #include <unistd.h>
 
 static void	move_fractal(t_complex *comp, int key)
@@ -88,6 +89,11 @@ int	handle_all_key_input(int key, t_data *data)
 	if (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
 		|| (key >= KEY_ARROW_LEFT && key <= KEY_ARROW_DOWN))
 	{
+		const char key_id = key == KEY_UP || key == KEY_ARROW_UP ? KEY_UP :
+			key == KEY_DOWN || key == KEY_ARROW_DOWN ? KEY_DOWN :
+			key == KEY_LEFT || key == KEY_ARROW_LEFT ? KEY_LEFT :
+			KEY_RIGHT;
+		dprintf(data->out, "%c\n", key_id);
 		move_fractal(data->comp, key);
 		draw_fractal(data);
 	}
